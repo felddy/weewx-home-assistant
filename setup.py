@@ -53,8 +53,8 @@ setup(
     # Additional URLs for this project per
     # https://packaging.python.org/guides/distributing-packages-using-setuptools/#project-urls
     project_urls={
-        "Source": "https://github.com/cisagov/skeleton-python-library",
-        "Tracker": "https://github.com/cisagov/skeleton-python-library/issues",
+        "Source": "https://github.com/felddy/weewx-home-assistant",
+        "Tracker": "https://github.com/felddy/weewx-home-assistant/issues",
     },
     # Author details
     author="Cybersecurity and Infrastructure Security Agency",

@@ -1,9 +1,9 @@
-# skeleton-python-library #
+# weewx-home-assistant #
 
-[![GitHub Build Status](https://github.com/cisagov/skeleton-python-library/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-python-library/actions)
-[![CodeQL](https://github.com/cisagov/skeleton-python-library/workflows/CodeQL/badge.svg)](https://github.com/cisagov/skeleton-python-library/actions/workflows/codeql-analysis.yml)
-[![Coverage Status](https://coveralls.io/repos/github/cisagov/skeleton-python-library/badge.svg?branch=develop)](https://coveralls.io/github/cisagov/skeleton-python-library?branch=develop)
-[![Known Vulnerabilities](https://snyk.io/test/github/cisagov/skeleton-python-library/develop/badge.svg)](https://snyk.io/test/github/cisagov/skeleton-python-library)
+[![GitHub Build Status](https://github.com/felddy/weewx-home-assistant/workflows/build/badge.svg)](https://github.com/felddy/weewx-home-assistant/actions)
+[![CodeQL](https://github.com/felddy/weewx-home-assistant/workflows/CodeQL/badge.svg)](https://github.com/felddy/weewx-home-assistant/actions/workflows/codeql-analysis.yml)
+[![Coverage Status](https://coveralls.io/repos/github/felddy/weewx-home-assistant/badge.svg?branch=develop)](https://coveralls.io/github/felddy/weewx-home-assistant?branch=develop)
+[![Known Vulnerabilities](https://snyk.io/test/github/felddy/weewx-home-assistant/develop/badge.svg)](https://snyk.io/test/github/felddy/weewx-home-assistant)
 
 This is a generic skeleton project that can be used to quickly get a
 new [cisagov](https://github.com/cisagov) Python library GitHub
