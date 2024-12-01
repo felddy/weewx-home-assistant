@@ -183,6 +183,7 @@ jobs:
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
     steps:
       - id: harden-runner
         name: Harden the runner
@@ -286,6 +287,7 @@ jobs:
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
     steps:
       - id: harden-runner
         name: Harden the runner
@@ -338,6 +340,7 @@ jobs:
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
     steps:
       - id: harden-runner
         name: Harden the runner

@@ -5,7 +5,7 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-case-conflict
       - id: check-executables-have-shebangs
@@ -31,7 +31,7 @@ repos:
 
   # Text file hooks
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.41.0
+    rev: v0.43.0
     hooks:
       - id: markdownlint
         args:
@@ -39,7 +39,7 @@ repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
     # This is the last version of v3 available from the mirror. We should hold
     # here until v4, which is currently in alpha, is more stable.
-    rev: v3.1.0
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         # This is the latest version of v3 available from NPM. The pre-commit
@@ -56,14 +56,14 @@ repos:
 
   # GitHub Actions hooks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.4
+    rev: 0.30.0
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
 
   # pre-commit hooks
   - repo: https://github.com/pre-commit/pre-commit
-    rev: v3.7.1
+    rev: v4.0.1
     hooks:
       - id: validate_manifest
 
@@ -98,7 +98,7 @@ repos:
 
   # Shell script hooks
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.8.0-1
+    rev: v3.10.0-2
     hooks:
       - id: shfmt
         args:
@@ -123,7 +123,7 @@ repos:
   # Python hooks
   # Run bandit on the "tests" tree with a configuration
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.8
+    rev: 1.8.0
     hooks:
       - id: bandit
         name: bandit (tests tree)
@@ -132,17 +132,17 @@ repos:
           - --config=.bandit.yml
   # Run bandit on everything except the "tests" tree
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.8
+    rev: 1.8.0
     hooks:
       - id: bandit
         name: bandit (everything else)
         exclude: tests
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.4.2
+    rev: 24.10.0
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0
+    rev: 7.1.1
     hooks:
       - id: flake8
         additional_dependencies:
@@ -152,19 +152,19 @@ repos:
     hooks:
       - id: isort
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0
+    rev: v1.13.0
     hooks:
       - id: mypy
         additional_dependencies:
           - types-setuptools
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.2
+    rev: v3.19.0
     hooks:
       - id: pyupgrade
 
   # Ansible hooks
   - repo: https://github.com/ansible/ansible-lint
-    rev: v24.6.0
+    rev: v24.10.0
     hooks:
       - id: ansible-lint
         additional_dependencies:
@@ -189,7 +189,7 @@ repos:
 
   # Terraform hooks
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.90.0
+    rev: v1.96.2
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
@@ -202,7 +202,7 @@ repos:
 
   # Packer hooks
   - repo: https://github.com/cisagov/pre-commit-packer
-    rev: v0.0.2
+    rev: v0.3.0
     hooks:
       - id: packer_validate
       - id: packer_fmt
