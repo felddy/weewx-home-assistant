@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 # Constants
 EXTENSION_CONFIG_KEY = "HAMQTT"
+THREAD_POOL_SIZE = 2
 
 
 class Controller(StdService):
@@ -57,7 +58,7 @@ class Controller(StdService):
         self.mqtt_client: mqtt.Client = self.init_mqtt_client(self.config.mqtt)
 
         # Thread pool for managing publisher tasks
-        self.executor = ThreadPoolExecutor(max_workers=2)
+        self.executor = ThreadPoolExecutor(max_workers=THREAD_POOL_SIZE)
 
         # Create a publishers
         self.state_publisher = StatePublisher(
