@@ -5,16 +5,9 @@ import logging
 from typing import Any, Dict
 
 # Third-Party Libraries
-from pydantic import (
-    AnyUrl,
-    BaseModel,
-    ConfigDict,
-    Field,
-    Secret,
-    ValidationError,
-    field_validator,
-)
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
+from . import MQTTConfig, StationInfo
 from .. import UnitSystem
 
 logger = logging.getLogger(__name__)
@@ -26,21 +19,22 @@ class ExtensionConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     discovery_topic_prefix: str = Field(
-        default="homeassistant", description="Prefix for the discovery topic"
+        default="homeassistant", description="Prefix for the MQTT discovery topic"
     )
     filter_keys: set[str] = Field(
-        default_factory=lambda: {"dateTime"}, description="Keys to filter data"
+        default_factory=lambda: {"dateTime"}, description="Keys to filter measurements"
     )
+    mqtt: MQTTConfig = Field(..., description="MQTT broker configuration")
     node_id: str = Field(
         ...,
         description="Unique identifier for the Home Assistant node",
         min_length=1,
         pattern=r"^[a-zA-Z0-9_-]+$",
     )
-    server_url: Secret[AnyUrl] = Field(..., description="URL of the MQTT server")
     state_topic_prefix: str = Field(
         default="weather", description="Prefix for the state topic"
     )
+    station: StationInfo = Field(..., description="Weather station device information")
     unit_system: UnitSystem = Field(
         default=UnitSystem.METRICWX, description="Unit system for measurements"
     )
@@ -57,17 +51,6 @@ class ExtensionConfig(BaseModel):
         elif isinstance(value, list):
             return set(value)
         raise ValueError("filter_keys must be a comma-separated string, list, or set.")
-
-    # Custom validator for scheme restriction
-    @classmethod
-    @field_validator("server_url")
-    def validate_scheme(cls, value: Secret[AnyUrl]) -> Secret[AnyUrl]:
-        """Validate the URL scheme."""
-        if value.get_secret_value().scheme not in {"mqtt", "mqtts"}:
-            raise ValueError(
-                f"Invalid URL scheme '{value.get_secret_value().scheme}'. Must be 'mqtt' or 'mqtts'."
-            )
-        return value
 
     @classmethod
     def from_config_dict(

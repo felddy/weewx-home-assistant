@@ -1,6 +1,11 @@
 """This module initializes the models package and imports the necessary configuration classes."""
 
-from .extension_config import ExtensionConfig
-from .mqtt_config import MQTTConfig
+# isort: off
 
-__all__ = ["ExtensionConfig", "MQTTConfig"]
+from .mqtt_config import MQTTConfig
+from .station_info import StationInfo
+from .extension_config import ExtensionConfig
+
+# isort: on
+
+__all__ = ["ExtensionConfig", "MQTTConfig", "StationInfo"]
