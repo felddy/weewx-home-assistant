@@ -10,6 +10,7 @@ from typing import Any
 import paho.mqtt.client as mqtt
 from weewx.units import to_std_system  # type: ignore
 
+from .models import StationInfo
 from .utils import UnitSystem, get_key_metadata, get_unit_metadata
 
 logger = logging.getLogger(__name__)
@@ -45,6 +46,7 @@ class ConfigPublisher:
         discovery_topic_prefix: str,
         state_topic_prefix: str,
         node_id: str,
+        station_info: StationInfo,
         filter_keys: set[str],
         unit_system: UnitSystem = UnitSystem.METRICWX,
     ):
@@ -63,6 +65,8 @@ class ConfigPublisher:
             The prefix for MQTT state topics.
         node_id : str
             The unique identifier for the node.
+        station_info : StationInfo
+            The weather station information.
         filter_keys : set of str
             A set of keys to filter the measurements.
         unit_system : UnitSystem, optional
@@ -75,6 +79,16 @@ class ConfigPublisher:
         self.node_id: str = node_id
         self.state_topic_prefix: str = state_topic_prefix
         self.unit_system: UnitSystem = unit_system
+
+        # Device metadata to include in discovery configurations
+        self.device_description: dict[str, Any] = {
+            "device": {
+                "identifiers": [self.node_id],
+                "name": station_info.name,
+                "model": station_info.model,
+                "manufacturer": station_info.manufacturer,
+            }
+        }
 
         # Dictionary to hold measurement metadata
         self.seen_measurements: dict[str, dict[str, Any]] = defaultdict(dict)
@@ -130,21 +144,14 @@ class ConfigPublisher:
             # Construct discovery topic
             discovery_topic = f"{self.discovery_topic_prefix}/sensor/{self.node_id}/{sensor_name}/config"
             # Construct the configuration payload
-            payload = (
+            payload: dict[str, Any] = (
                 {
                     "availability_topic": self.availability_topic,
                     "state_topic": f"{self.state_topic_prefix}/{sensor_name}",
                     "unique_id": f"{self.node_id}_{sensor_name}",
                 }
                 | metadata
-                | {
-                    "device": {
-                        "identifiers": [f"{self.node_id}"],
-                        "name": "Weather Station",
-                        "model": "WeeWX Home Assistant Integration",
-                        "manufacturer": "Geekpad",
-                    },
-                }
+                | self.device_description
             )
 
             # Remove any keys with None values

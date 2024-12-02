@@ -13,11 +13,10 @@ from typing import Any
 
 # Third-Party Libraries
 import paho.mqtt.client as mqtt
-from pydantic import AnyUrl
 from weewx import NEW_LOOP_PACKET  # type: ignore
 from weewx.engine import StdEngine, StdService  # type: ignore
 
-from . import ConfigPublisher, StatePublisher, UnitSystem
+from . import ConfigPublisher, StatePublisher
 from .models import ExtensionConfig, MQTTConfig
 
 logger = logging.getLogger(__name__)
@@ -43,7 +42,7 @@ class Controller(StdService):
             f"Initializing extension with configuration key {EXTENSION_CONFIG_KEY}"
         )
         try:
-            extension_config = ExtensionConfig.from_config_dict(
+            self.config = ExtensionConfig.from_config_dict(
                 config_dict, EXTENSION_CONFIG_KEY
             )
         except Exception:
@@ -52,16 +51,10 @@ class Controller(StdService):
                 exc_info=True,
             )
             return
-        logger.debug(f"Loaded extension configuration {extension_config}")
-        self.availability_topic: str = f"{extension_config.state_topic_prefix}/status"
-        self.discovery_topic_prefix: str = extension_config.discovery_topic_prefix
-        self.filter_keys: set[str] = extension_config.filter_keys
-        self.node_id: str = extension_config.node_id
-        self.state_topic_prefix: str = extension_config.state_topic_prefix
-        self.unit_system: UnitSystem = extension_config.unit_system
-        self.mqtt_client: mqtt.Client = self.init_mqtt_client(
-            extension_config.server_url.get_secret_value()
-        )
+        logger.debug(f"Loaded extension configuration {self.config}")
+
+        self.availability_topic: str = f"{self.config.state_topic_prefix}/status"
+        self.mqtt_client: mqtt.Client = self.init_mqtt_client(self.config.mqtt)
 
         # Thread pool for managing publisher tasks
         self.executor = ThreadPoolExecutor(max_workers=2)
@@ -69,35 +62,36 @@ class Controller(StdService):
         # Create a publishers
         self.state_publisher = StatePublisher(
             self.mqtt_client,
-            self.state_topic_prefix,
-            self.filter_keys,
-            self.unit_system,
+            self.config.state_topic_prefix,
+            self.config.filter_keys,
+            self.config.unit_system,
         )
         self.config_publisher = ConfigPublisher(
             self.mqtt_client,
             self.availability_topic,
-            self.discovery_topic_prefix,
-            self.state_topic_prefix,
-            self.node_id,
-            self.filter_keys,
-            self.unit_system,
+            self.config.discovery_topic_prefix,
+            self.config.state_topic_prefix,
+            self.config.node_id,
+            self.config.station,
+            self.config.filter_keys,
+            self.config.unit_system,
         )
 
         # Register the callbacks for loop packets
         self.bind(NEW_LOOP_PACKET, self.on_weewx_loop)
 
-    def init_mqtt_client(self, server_url: AnyUrl):
+    def init_mqtt_client(self, mqtt_config: MQTTConfig):
         """Initialize the MQTT client."""
-        mqtt_config: MQTTConfig = MQTTConfig.from_url(server_url)
         logger.info(f"MQTT configuration: {mqtt_config}")
         client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, mqtt_config.client_id)
         client.logger = logger
+        # Set the callbacks
         client.on_connect = self.on_mqtt_connect
         client.on_message = self.on_mqtt_message
         client.on_subscribe = self.on_mqtt_subscribe
         client.on_unsubscribe = self.on_mqtt_unsubscribe
         client.on_disconnect = self.on_mqtt_disconnect
-        if mqtt_config.is_secure and mqtt_config.tls:
+        if mqtt_config.use_tls and mqtt_config.tls:
             client.tls_set_context(mqtt_config.tls)
         if mqtt_config.username and mqtt_config.password:
             client.username_pw_set(
@@ -119,7 +113,7 @@ class Controller(StdService):
             # Send our birth message
             client.publish(self.availability_topic, "online", retain=True)
             # Subscribe to the homeassistant birth message
-            client.subscribe(f"{self.discovery_topic_prefix}/status")
+            client.subscribe(f"{self.config.discovery_topic_prefix}/status")
         else:
             logger.error(f"Failed to connect to MQTT broker, return code {reason_code}")
 
@@ -143,7 +137,7 @@ class Controller(StdService):
         logger.info(f"Received message on topic {msg.topic}: {msg.payload}")
         # Resend config on homeassistant birth
         if (
-            msg.topic == f"{self.discovery_topic_prefix}/status"
+            msg.topic == f"{self.config.discovery_topic_prefix}/status"
             and msg.payload == b"online"
         ):
             future = self.executor.submit(self.config_publisher.publish_discovery)
