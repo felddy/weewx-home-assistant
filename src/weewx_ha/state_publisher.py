@@ -12,6 +12,8 @@ from . import UnitSystem
 
 logger = logging.getLogger(__name__)
 
+DATETIME_KEYS = {"dateTime", "sunrise", "sunset"}
+
 
 class StatePublisher:
     """Process loop packets and publish state to MQTT.
@@ -62,7 +64,7 @@ class StatePublisher:
         for key, value in packet.items():
             if key in self.filter_keys:
                 continue
-            if key == "dateTime":
+            if key in DATETIME_KEYS:
                 value = datetime.fromtimestamp(value, tz=timezone.utc).isoformat()
             elif key == "usUnits":
                 value = str(UnitSystem.from_int(value))

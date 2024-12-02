@@ -96,7 +96,9 @@ def get_key_metadata(weewx_key: str) -> dict[str, Any]:
     # Guess at an icon and class
     icon = None
     device_class = None
-    if "battery" in key_split.lower():
+    if "alarm" in key_split.lower():
+        icon = "mdi:alarm-light"
+    elif "battery" in key_split.lower():
         device_class = "battery"
         icon = "mdi:battery-outline"
     elif "humidity" in key_split.lower():
@@ -203,23 +205,20 @@ UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
 
 KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
     "ET": {
-        "device_class": None,
         "icon": "mdi:waves-arrow-up",
         "name": "Evapotranspiration",
     },
     "THSW": {
-        "device_class": None,
         "icon": "mdi:thermometer-lines",
         "name": "Temperature Humidity Sun Wind Index",
     },
-    "UV": {"device_class": None, "icon": "mdi:sun-wireless", "name": "UV Index"},
+    "UV": {"icon": "mdi:sun-wireless", "name": "UV Index"},
     "altimeter": {
         "device_class": "atmospheric_pressure",
         "icon": "mdi:altimeter",
         "name": "Pressure Altimeter",
     },
     "altimeterRate": {
-        "device_class": None,
         "icon": "mdi:altimeter",
         "name": "Altimeter Rate",
     },
@@ -239,7 +238,6 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Barometric Pressure",
     },
     "barometerRate": {
-        "device_class": None,
         "icon": "mdi:gauge",
         "name": "Barometric Pressure Rate",
     },
@@ -254,7 +252,6 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Cloud Base Height",
     },
     "cloudcover": {
-        "device_class": None,
         "icon": "mdi:weather-cloudy-alert",
         "name": "Cloud Cover",
     },
@@ -274,11 +271,14 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Console Battery Voltage",
     },
     "cooldeg": {
-        "device_class": None,
         "icon": "mdi:snowflake-thermometer",
         "name": "Cooling Degree Days",
     },
     "dateTime": {"device_class": "timestamp", "icon": "mdi:clock", "name": "Date Time"},
+    "dayET": {
+        "icon": "mdi:waves-arrow-up",
+        "name": "Day Evapotranspiration",
+    },
     "dayRain": {
         "device_class": "precipitation",
         "icon": "mdi:cup-water",
@@ -294,6 +294,10 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:water-thermometer",
         "name": "Dew Point Temperature",
     },
+    "extraAlarm": {
+        "icon": "mdi:alarm-light",
+        "name": "Extra Alarm",
+    },
     "extraHumid": {
         "device_class": "humidity",
         "icon": "mdi:water-percent",
@@ -304,13 +308,19 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:thermometer",
         "name": "Extra Temperature",
     },
+    "forecastIcon": {
+        "icon": "mdi:image-frame",
+        "name": "Forecast Icon",
+    },
+    "forecastRule": {
+        "icon": "mdi:format-list-numbered",
+        "name": "Forecast Rule",
+    },
     "growdeg": {
-        "device_class": None,
         "icon": "mdi:sprout",
         "name": "Growing Degree Days",
     },
     "gustdir": {
-        "device_class": None,
         "icon": "mdi:compass-rose",
         "name": "Wind Gust Direction",
     },
@@ -319,9 +329,8 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:weather-hail",
         "name": "Hailfall",
     },
-    "hailRate": {"device_class": None, "icon": "mdi:weather-hail", "name": "Hail Rate"},
+    "hailRate": {"icon": "mdi:weather-hail", "name": "Hail Rate"},
     "heatdeg": {
-        "device_class": None,
         "icon": "mdi:sun-thermometer",
         "name": "Heating Degree Days",
     },
@@ -350,11 +359,15 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:cup-water",
         "name": "Hourly Rainfall",
     },
-    "humidex": {"device_class": None, "icon": "mdi:water-percent", "name": "Humidex"},
+    "humidex": {"icon": "mdi:water-percent", "name": "Humidex"},
     "illuminance": {
         "device_class": "illuminance",
         "icon": "mdi:sun-wireless",
         "name": "Illuminance",
+    },
+    "insideAlarm": {
+        "icon": "mdi:alarm-light",
+        "name": "Inside Alarm",
     },
     "inDewpoint": {
         "device_class": "temperature",
@@ -371,7 +384,7 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:thermometer",
         "name": "Indoor Temperature",
     },
-    "interval": {"device_class": None, "icon": "mdi:repeat", "name": "Interval"},
+    "interval": {"icon": "mdi:repeat", "name": "Interval"},
     "leafTemp": {
         "device_class": "temperature",
         "icon": "mdi:leaf-maple",
@@ -388,17 +401,14 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Lightning Distance",
     },
     "lightning_disturber_count": {
-        "device_class": None,
         "icon": "mdi:flash",
         "name": "Lightning Disturber Count",
     },
     "lightning_noise_count": {
-        "device_class": None,
         "icon": "mdi:flash",
         "name": "Lightning Noise Count",
     },
     "lightning_strike_count": {
-        "device_class": None,
         "icon": "mdi:flash",
         "name": "Lightning Strike Count",
     },
@@ -412,13 +422,16 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:sun-wireless",
         "name": "Maximum Solar Radiation",
     },
+    "monthET": {
+        "icon": "mdi:waves-arrow-up",
+        "name": "Month Evapotranspiration",
+    },
     "monthRain": {
         "device_class": "precipitation",
         "icon": "mdi:cup-water",
         "name": "Monthly Rainfall",
     },
     "nh3": {
-        "device_class": None,
         "icon": "mdi:chemical-weapon",
         "name": "Ammonia Concentration",
     },
@@ -442,6 +455,10 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:water-percent",
         "name": "Outdoor Humidity",
     },
+    "outsideAlarm": {
+        "icon": "mdi:alarm-light",
+        "name": "Outside Alarm",
+    },
     "outTemp": {
         "device_class": "temperature",
         "icon": "mdi:thermometer",
@@ -453,7 +470,6 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Outdoor Wetbulb Temperature",
     },
     "pb": {
-        "device_class": None,
         "icon": "mdi:chemical-weapon",
         "name": "Lead Concentration",
     },
@@ -473,7 +489,6 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "PM2.5 Concentration",
     },
     "pop": {
-        "device_class": None,
         "icon": "mdi:cloud-percent",
         "name": "Probability of Precipitation",
     },
@@ -483,7 +498,6 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Atmospheric Pressure",
     },
     "pressureRate": {
-        "device_class": None,
         "icon": "mdi:gauge",
         "name": "Pressure Rate",
     },
@@ -523,9 +537,12 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Root Mean Square Wind Speed",
     },
     "rxCheckPercent": {
-        "device_class": None,
         "icon": "mdi:radio-tower",
         "name": "Receive Check Percentage",
+    },
+    "soilLeafAlarm": {
+        "icon": "mdi:alarm-light",
+        "name": "Soil Leaf Alarm",
     },
     "snow": {
         "device_class": "precipitation",
@@ -572,6 +589,16 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:clock-start",
         "name": "Storm Start Time",
     },
+    "sunrise": {
+        "device_class": "timestamp",
+        "icon": "mdi:weather-sunset-up",
+        "name": "Sunrise",
+    },
+    "sunset": {
+        "device_class": "timestamp",
+        "icon": "mdi:weather-sunset-down",
+        "name": "Sunset",
+    },
     "sunshineDur": {
         "device_class": "duration",
         "icon": "mdi:sun-clock",
@@ -599,7 +626,6 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Vector Average Wind Speed",
     },
     "vecdir": {
-        "device_class": None,
         "icon": "mdi:compass-rose",
         "name": "Vector Direction",
     },
@@ -609,12 +635,10 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Wind Speed",
     },
     "windDir": {
-        "device_class": None,
         "icon": "mdi:compass-rose",
         "name": "Wind Direction",
     },
     "windDir10": {
-        "device_class": None,
         "icon": "mdi:compass-rose",
         "name": "10-Minute Wind Direction",
     },
@@ -624,7 +648,6 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Wind Gust Speed",
     },
     "windGustDir": {
-        "device_class": None,
         "icon": "mdi:compass-rose",
         "name": "Wind Gust Direction",
     },
@@ -657,6 +680,10 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "device_class": "wind_speed",
         "icon": "mdi:windsock",
         "name": "Wind Vector Speed",
+    },
+    "yearET": {
+        "icon": "mdi:waves-arrow-up",
+        "name": "Year Evapotranspiration",
     },
     "yearRain": {
         "device_class": "precipitation",
