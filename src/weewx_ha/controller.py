@@ -52,7 +52,9 @@ class Controller(StdService):
                 exc_info=True,
             )
             return
-        logger.debug(f"Loaded extension configuration {self.config}")
+        logger.debug(
+            f"Loaded extension configuration:\n{self.config.model_dump_json(indent=4)}"
+        )
 
         self.availability_topic: str = f"{self.config.state_topic_prefix}/status"
         self.mqtt_client: mqtt.Client = self.init_mqtt_client(self.config.mqtt)
@@ -92,8 +94,8 @@ class Controller(StdService):
         client.on_subscribe = self.on_mqtt_subscribe
         client.on_unsubscribe = self.on_mqtt_unsubscribe
         client.on_disconnect = self.on_mqtt_disconnect
-        if mqtt_config.use_tls and mqtt_config.tls:
-            client.tls_set_context(mqtt_config.tls)
+        if mqtt_config.use_tls:
+            client.tls_set_context(mqtt_config.tls.context)
         if mqtt_config.username and mqtt_config.password:
             client.username_pw_set(
                 mqtt_config.username, mqtt_config.password.get_secret_value()
