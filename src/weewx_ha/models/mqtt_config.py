@@ -12,9 +12,7 @@ from . import TLSConfig
 class MQTTConfig(BaseModel):
     """MQTT broker configuration model."""
 
-    model_config = ConfigDict(
-        arbitrary_types_allowed=True, extra="forbid"
-    )  # Needed for ssl.SSLContext
+    model_config = ConfigDict(extra="forbid")
 
     client_id: Optional[str] = None
     hostname: str = Field(..., min_length=1, description="MQTT broker hostname")
@@ -27,7 +25,6 @@ class MQTTConfig(BaseModel):
     port: int = Field(
         default=8883, ge=1, le=65535, description="Port number for the MQTT broker"
     )
-    qos: int = Field(default=0, ge=0, le=2, description="Quality of Service level")
     tls: TLSConfig = Field(default_factory=TLSConfig, description="TLS configuration")
     username: str = Field(
         ..., min_length=1, description="Username for MQTT broker authentication"

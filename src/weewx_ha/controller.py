@@ -102,7 +102,7 @@ class Controller(StdService):
             )
         client.loop_start()
         # Set the last will and testament
-        client.will_set(self.availability_topic, "offline", retain=True)
+        client.will_set(self.availability_topic, "offline", qos=1, retain=True)
         client.connect(mqtt_config.hostname, mqtt_config.port, mqtt_config.keep_alive)
         return client
 
@@ -114,9 +114,9 @@ class Controller(StdService):
             logger.info("Connected to MQTT broker")
             logger.info("Publishing online availability")
             # Send our birth message
-            client.publish(self.availability_topic, "online", retain=True)
+            client.publish(self.availability_topic, "online", qos=1, retain=True)
             # Subscribe to the homeassistant birth message
-            client.subscribe(f"{self.config.discovery_topic_prefix}/status")
+            client.subscribe(f"{self.config.discovery_topic_prefix}/status", qos=1)
         else:
             logger.error(f"Failed to connect to MQTT broker, return code {reason_code}")
 
@@ -207,8 +207,14 @@ class Controller(StdService):
         logger.warning("Shutdown requested")
 
         logger.info("Publishing offline availability")
-        self.mqtt_client.publish(self.availability_topic, "offline", retain=True)
-
+        message_info = self.mqtt_client.publish(
+            self.availability_topic, "offline", qos=1, retain=True
+        )
+        try:
+            message_info.wait_for_publish(timeout=10)
+            logger.info("Offline availability publication complete")
+        except Exception as e:
+            logger.error(f"Error while publishing offline availability: {e}")
         # Shutdown the executor, allowing threads to complete pending work
         self.executor.shutdown(wait=True)
         self.mqtt_client.disconnect()  # Also stops the MQTT client loop
