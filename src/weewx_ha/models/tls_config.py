@@ -42,13 +42,7 @@ class TLSConfig(BaseModel):
     @classmethod
     def validate_certificate_fields(cls, values: dict[str, Any]) -> dict[str, Any]:
         """Ensure that the certificate and key files are provided together."""
-        certfile = values.get("certfile")
-        keyfile = values.get("keyfile")
-        if certfile and not keyfile:
-            raise ValueError(
-                "If 'certfile' is provided, 'keyfile' must also be provided."
-            )
-        if keyfile and not certfile:
+        if values.get("keyfile") and not values.get("certfile"):
             raise ValueError(
                 "If 'keyfile' is provided, 'certfile' must also be provided."
             )
