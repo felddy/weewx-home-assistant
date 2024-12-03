@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 # TODO Add command topics to control configuration settings
 
 # Constants
-EXTENSION_CONFIG_KEY = "HAMQTT"
+EXTENSION_CONFIG_KEY = "HomeAssistant"
 THREAD_POOL_SIZE = 2
 
 
