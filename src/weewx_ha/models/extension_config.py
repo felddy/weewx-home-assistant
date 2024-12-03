@@ -40,8 +40,8 @@ class ExtensionConfig(BaseModel):
     )
 
     # Custom validator to convert comma-delimited string to set for filter_keys
-    @classmethod
     @field_validator("filter_keys", mode="before")
+    @classmethod
     def validate_filter_keys(cls, value: Any) -> set[str]:
         """Validate and convert the input value to a set of filter keys."""
         if isinstance(value, str):

@@ -36,8 +36,8 @@ class MQTTConfig(BaseModel):
         default=True, description="Indicates if the connection is secure (uses TLS)"
     )
 
-    @classmethod
     @field_validator("password")
+    @classmethod
     def validate_password(cls, value: Secret[str]) -> Secret[str]:
         """Ensure that the password is not empty."""
         if not value.get_secret_value():
