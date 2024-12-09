@@ -3,12 +3,15 @@
 # Standard Python Libraries
 from copy import copy
 from enum import Enum
+import logging
 import re
 from typing import Any, Optional
 
 # Third-Party Libraries
 import weewx  # type: ignore
 from weewx.units import getStandardUnitType  # type: ignore
+
+logger = logging.getLogger(__name__)
 
 
 class UnitSystem(str, Enum):
@@ -52,6 +55,23 @@ def get_unit_metadata(measurement_name: str, unit_system: UnitSystem) -> dict[st
     (target_unit, target_group) = getStandardUnitType(
         int(unit_system), measurement_name
     )
+
+    if target_unit is None:
+        # take a guess at the unit based on the measurement name
+        if "battery" in measurement_name.lower():
+            target_unit = "percent_battery"
+        elif measurement_name == "usUnits":
+            pass  # Nothing to do for usUnits, but not a warning either
+        else:
+            logger.warning(
+                "No unit found for measurement '%s' in unit system %s",
+                measurement_name,
+                unit_system,
+            )
+        if target_unit:
+            logger.info(
+                "Guessed unit '%s' for measurement %s", target_unit, measurement_name
+            )
 
     return UNIT_METADATA.get(
         target_unit,
