@@ -12,7 +12,7 @@ from . import UnitSystem
 
 logger = logging.getLogger(__name__)
 
-DATETIME_KEYS = {"dateTime", "sunrise", "sunset"}
+DATETIME_KEYS = {"dateTime", "stormStart", "sunrise", "sunset"}
 
 
 class StatePublisher:
