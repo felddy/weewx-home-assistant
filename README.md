@@ -5,12 +5,39 @@
 [![Coverage Status](https://coveralls.io/repos/github/felddy/weewx-home-assistant/badge.svg?branch=develop)](https://coveralls.io/github/felddy/weewx-home-assistant?branch=develop)
 [![Known Vulnerabilities](https://snyk.io/test/github/felddy/weewx-home-assistant/develop/badge.svg)](https://snyk.io/test/github/felddy/weewx-home-assistant)
 
-This is a [WeeWX](http://www.weewx.com/) extension that publishes weather data
-and configurations to [Home Assistant](https://www.home-assistant.io/) using the
-[MQTT](https://mqtt.org/) protocol.
+This [WeeWX](http://www.weewx.com/) extension simplifies the integration of a
+weather station with [Home Assistant](https://www.home-assistant.io/). By
+leveraging Home Assistant's [MQTT](https://mqtt.org/) discovery protocol, it
+automatically creates entities for weather data, significantly reducing manual
+configuration. Additionally, it ensures that all weather data is securely
+transmitted and devices are always accurately represented, thanks to its support
+for availability messages.
 
-This extension is designed to be secure by default. By default encryption is
-enabled.  Anonymous connections are not supported.
+Key Features:
+
+- **Simplified Setup**: Implements Home Assistant's MQTT discovery, allowing
+  easy and automatic integration of weather station measurements.
+- **Secure by Default**: Encryption is enabled, and anonymous connections are
+  not supported, ensuring your data remains protected.
+- **Robust Availability**: Supports MQTT Last Will and Testament (LWT) to
+  accurately report device availability in Home Assistant.
+- **Flexible Integration**: Supports multiple sensors and measurements with
+  dynamic configuration, adapting easily to different weather station models and
+  measurement units.
+
+## Prerequisites ##
+
+- A functioning installation of [WeeWX](http://www.weewx.com/) version `5.1` or
+later using [Python](https://www.python.org/) version `3.10` or later.
+- A functioning MQTT broker.
+
+> [!TIP]
+> We recommend using our [WeeWX Docker
+> image](https://github.com/felddy/weewx-docker) to simplify the installation
+> and configuration of WeeWX in conjunction with the
+> [Mosquitto](https://mosquitto.org/) broker which can be installed as a [Home
+> Assistant
+> add-on](https://github.com/home-assistant/addons/blob/master/mosquitto/DOCS.md).
 
 ## Installation ##
 
@@ -63,11 +90,11 @@ Add a configuration section to the root of the `weewx.conf` file:
     [[mqtt]]
         client_id = <optional>
         hostname = <required>
-        keep_alive = <default: 60>
+        keep_alive = <optional: 60>
         password = <required>
-        port = <default: 8883>
+        port = <optional: 8883>
         username = <required>
-        use_tls = <default: True>
+        use_tls = <optional: True>
         [[[tls]]]
             cadata = <optional>
             cafile = <optional>
@@ -97,11 +124,7 @@ details.
 ## License ##
 
 This project is released as open source under the [MIT license](LICENSE).
-This project is in the public domain within the United States, and
-copyright and related rights in the work worldwide are waived through
-the [CC0 1.0 Universal public domain
-dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 
-All contributions to this project will be released under the CC0
-dedication. By submitting a pull request, you are agreeing to comply
-with this waiver of copyright interest.
+All contributions to this project will be released under the same MIT license.
+By submitting a pull request, you are agreeing to comply with this waiver of
+copyright interest.
