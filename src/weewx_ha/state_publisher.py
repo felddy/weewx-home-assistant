@@ -62,7 +62,8 @@ class StatePublisher:
         if self.unit_system is not None:
             packet = to_std_system(packet, int(self.unit_system))
         for key, value in packet.items():
-            if key in self.filter_keys:
+            if value is None or key in self.filter_keys:
+                # Publishing None values angers Home Assistant when processing templates
                 continue
             if key in DATETIME_KEYS:
                 value = datetime.fromtimestamp(value, tz=timezone.utc).isoformat()
