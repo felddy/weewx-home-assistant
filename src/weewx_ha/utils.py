@@ -97,7 +97,7 @@ def get_key_config(weewx_key: str) -> dict[str, Any]:
         # If the base key is found in the known keys mapping, construct the friendly name
         config = copy(KEY_CONFIG.get(base_key))
         if config:
-            config["name"] = f"{config['name']} {suffix}"
+            config["metadata"]["name"] = f"{config['metadata']['name']} {suffix}"
             return config
 
     # If we still haven't found a match, generate a friendly name from the key
