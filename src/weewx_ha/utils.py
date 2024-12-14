@@ -123,8 +123,6 @@ def get_key_config(weewx_key: str) -> dict[str, Any]:
         guess = deepcopy(KEY_CONFIG["extraAlarm"])
     elif "battery status" in key_split.lower():
         guess = deepcopy(KEY_CONFIG["batteryStatus"])
-    # elif "battery" in key_split.lower():
-    #     guess = deepcopy(KEY_CONFIG["inHumidity"])
     elif "humidity" in key_split.lower():
         guess = deepcopy(KEY_CONFIG["outHumidity"])
     elif "pressure" in key_split.lower():
