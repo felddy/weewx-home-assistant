@@ -812,30 +812,36 @@ KEY_CONFIG: dict[str, Any] = {
             "name": "Storm Rainfall",
         },
     },
-    "stormStart": {
+    "stormStart": {  # is sent in localtime
         "convert_lambda": lambda x: datetime.fromtimestamp(
-            x, tz=timezone.utc
-        ).isoformat(),
+            x, tz=datetime.now().astimezone().tzinfo
+        )
+        .astimezone(tz=timezone.utc)
+        .isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:clock-start",
             "name": "Storm Start Time",
         },
     },
-    "sunrise": {
+    "sunrise": {  # is sent in localtime
         "convert_lambda": lambda x: datetime.fromtimestamp(
-            x, tz=timezone.utc
-        ).isoformat(),
+            x, tz=datetime.now().astimezone().tzinfo
+        )
+        .astimezone(tz=timezone.utc)
+        .isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:weather-sunset-up",
             "name": "Sunrise",
         },
     },
-    "sunset": {
+    "sunset": {  # is sent in localtime
         "convert_lambda": lambda x: datetime.fromtimestamp(
-            x, tz=timezone.utc
-        ).isoformat(),
+            x, tz=datetime.now().astimezone().tzinfo
+        )
+        .astimezone(tz=timezone.utc)
+        .isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:weather-sunset-down",
