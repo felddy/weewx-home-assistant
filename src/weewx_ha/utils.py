@@ -1,7 +1,8 @@
 """Utility functions and data."""
 
 # Standard Python Libraries
-from copy import copy
+from copy import copy, deepcopy
+from datetime import datetime, timezone
 from enum import Enum
 import logging
 import re
@@ -58,10 +59,13 @@ def get_unit_metadata(measurement_name: str, unit_system: UnitSystem) -> dict[st
 
     if target_unit is None:
         # take a guess at the unit based on the measurement name
-        if "battery" in measurement_name.lower():
-            target_unit = "percent_battery"
-        elif measurement_name == "usUnits":
-            pass  # Nothing to do for usUnits, but not a warning either
+        if measurement_name == "usUnits":
+            pass  # Nothing to do for usUnits, this is a special case
+        elif measurement_name.endswith("ET"):
+            # Map other evapotranspiration measurements (dayET, monthET, yearET) to the same unit as ET
+            (target_unit, _) = getStandardUnitType(int(unit_system), "ET")
+        elif measurement_name in {"sunrise", "sunset", "stormStart"}:
+            (target_unit, _) = getStandardUnitType(int(unit_system), "dateTime")
         else:
             logger.warning(
                 "No unit found for measurement '%s' in unit system %s",
@@ -79,22 +83,22 @@ def get_unit_metadata(measurement_name: str, unit_system: UnitSystem) -> dict[st
     )
 
 
-def get_key_metadata(weewx_key: str) -> dict[str, Any]:
+def get_key_config(weewx_key: str) -> dict[str, Any]:
     """Generate metadata for a WeeWX key."""
     # First, attempt an exact match for the key
-    metadata = KEY_METADATA.get(weewx_key)
-    if metadata:
-        return metadata
+    config = KEY_CONFIG.get(weewx_key)
+    if config:
+        return config
 
     # Next, remove numeric suffix to check for a base key match
     match = re.match(r"(.*?)(\d+)$", weewx_key)
     if match:
         base_key, suffix = match.groups()
         # If the base key is found in the known keys mapping, construct the friendly name
-        metadata = copy(KEY_METADATA.get(base_key))
-        if metadata:
-            metadata["name"] = f"{metadata['name']} {suffix}"
-            return metadata
+        config = copy(KEY_CONFIG.get(base_key))
+        if config:
+            config["name"] = f"{config['name']} {suffix}"
+            return config
 
     # If we still haven't found a match, generate a friendly name from the key
     # Add space before digits (e.g., extraAlarm5 -> extraAlarm 5)
@@ -113,26 +117,22 @@ def get_key_metadata(weewx_key: str) -> dict[str, Any]:
     elif key_split.startswith("Rx "):
         key_split = key_split.replace("Rx ", "Receive ", 1)
 
-    # Guess at an icon and class
-    guess: dict[str, bool | str] = {"name": key_split}
+    # Guess at what the metadata should be based on the key
+    guess: dict[str, Any] = {"metadata": {}}
     if "alarm" in key_split.lower():
-        guess["icon"] = "mdi:alarm-light"
-        guess["enabled_by_default"] = False
-    elif "battery" in key_split.lower():
-        guess["device_class"] = "battery"
-        guess["icon"] = "mdi:battery-outline"
+        guess = deepcopy(KEY_CONFIG["extraAlarm"])
+    elif "battery status" in key_split.lower():
+        guess = deepcopy(KEY_CONFIG["batteryStatus"])
+    # elif "battery" in key_split.lower():
+    #     guess = deepcopy(KEY_CONFIG["inHumidity"])
     elif "humidity" in key_split.lower():
-        guess["device_class"] = "humidity"
-        guess["icon"] = "mdi:water-percent"
+        guess = deepcopy(KEY_CONFIG["outHumidity"])
     elif "pressure" in key_split.lower():
-        guess["device_class"] = "pressure"
-        guess["icon"] = "mdi:gauge"
+        guess = deepcopy(KEY_CONFIG["pressure"])
     elif "temperature" in key_split.lower():
-        guess["device_class"] = "temperature"
-        guess["icon"] = "mdi:thermometer"
-    elif "wind" in key_split.lower():
-        guess["device_class"] = "wind_speed"
-        guess["icon"] = "mdi:windsock"
+        guess = deepcopy(KEY_CONFIG["outTemp"])
+
+    guess["metadata"]["name"] = key_split
 
     logger.warning("Guessed metadata for key '%s': %s", weewx_key, guess)
     return guess
@@ -224,7 +224,7 @@ UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
     },
 }
 
-KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
+KEY_CONFIG: dict[str, Any] = {
     "ET": {
         "metadata": {
             "enabled_by_default": False,
@@ -281,6 +281,17 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
             "name": "Barometric Pressure Rate",
         },
     },
+    "batteryStatus": {
+        "integration": "binary_sensor",
+        "metadata": {
+            "device_class": "battery",
+            "enabled_by_default": False,
+            "icon": "mdi:battery",
+            "name": "Battery Status",
+            "payload_off": 0,
+            "payload_on": 1,
+        },
+    },
     "beaufort": {
         "metadata": {
             "device_class": "enum",
@@ -329,6 +340,9 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "dateTime": {
+        "convert_lambda": lambda x: datetime.fromtimestamp(
+            x, tz=timezone.utc
+        ).isoformat(),
         "metadata": {
             "enabled_by_default": False,
             "device_class": "timestamp",
@@ -365,10 +379,13 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "extraAlarm": {
+        "integration": "binary_sensor",
         "metadata": {
             "enabled_by_default": False,
             "icon": "mdi:alarm-light",
             "name": "Extra Alarm",
+            "payload_off": 0,
+            "payload_on": 1,
         },
     },
     "extraHumid": {
@@ -471,10 +488,13 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "insideAlarm": {
+        "integration": "binary_sensor",
         "metadata": {
             "enabled_by_default": False,
             "icon": "mdi:alarm-light",
             "name": "Inside Alarm",
+            "payload_off": 0,
+            "payload_on": 1,
         },
     },
     "inDewpoint": {
@@ -603,10 +623,13 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "outsideAlarm": {
+        "integration": "binary_sensor",
         "metadata": {
             "enabled_by_default": False,
             "icon": "mdi:alarm-light",
             "name": "Outside Alarm",
+            "payload_off": 0,
+            "payload_on": 1,
         },
     },
     "outTemp": {
@@ -725,10 +748,13 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "soilLeafAlarm": {
+        "integration": "binary_sensor",
         "metadata": {
             "enabled_by_default": False,
             "icon": "mdi:alarm-light",
             "name": "Soil Leaf Alarm",
+            "payload_off": 0,
+            "payload_on": 1,
         },
     },
     "snow": {
@@ -788,6 +814,9 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "stormStart": {
+        "convert_lambda": lambda x: datetime.fromtimestamp(
+            x, tz=timezone.utc
+        ).isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:clock-start",
@@ -795,6 +824,9 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "sunrise": {
+        "convert_lambda": lambda x: datetime.fromtimestamp(
+            x, tz=timezone.utc
+        ).isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:weather-sunset-up",
@@ -802,6 +834,9 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "sunset": {
+        "convert_lambda": lambda x: datetime.fromtimestamp(
+            x, tz=timezone.utc
+        ).isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:weather-sunset-down",
@@ -830,6 +865,7 @@ KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
         },
     },
     "usUnits": {
+        "convert_lambda": lambda x: str(UnitSystem.from_int(x)),
         "metadata": {
             "attributes": {"options": "{{ ['METRIC','METRICWX','US'] }}"},
             "device_class": "enum",

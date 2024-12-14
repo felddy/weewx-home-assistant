@@ -11,7 +11,7 @@ import paho.mqtt.client as mqtt
 from weewx.units import to_std_system  # type: ignore
 
 from .models import StationInfo
-from .utils import UnitSystem, get_key_metadata, get_unit_metadata
+from .utils import UnitSystem, get_key_config, get_unit_metadata
 
 logger = logging.getLogger(__name__)
 
@@ -84,7 +84,7 @@ class ConfigPublisher:
             }
         }
 
-        # Dictionary to hold measurement metadata
+        # Dictionary to hold measurement configuration and metadata
         self.seen_measurements: dict[str, dict[str, Any]] = defaultdict(dict)
 
     def process_packet(self, packet: dict) -> bool:
@@ -110,8 +110,11 @@ class ConfigPublisher:
             if key not in self.seen_measurements:
                 logger.debug(f"Discovered new measurement: {key}")
                 found_new_measurements = True
-                self.seen_measurements[key] |= get_unit_metadata(key, self.unit_system)
-                self.seen_measurements[key] |= get_key_metadata(key)
+                self.seen_measurements[key] |= get_key_config(key)
+                # Unit metadata is underlaid with the metadata from the key
+                self.seen_measurements[key]["metadata"] = get_unit_metadata(
+                    key, self.unit_system
+                ) | self.seen_measurements[key].get("metadata", {})
         return found_new_measurements
 
     def publish_discovery(self) -> None:
@@ -132,9 +135,10 @@ class ConfigPublisher:
         logger.info(
             f"Publishing {len(self.seen_measurements)} discovery configurations"
         )
-        for sensor_name, metadata in self.seen_measurements.items():
+        for sensor_name, config in self.seen_measurements.items():
             # Construct discovery topic
-            discovery_topic = f"{self.discovery_topic_prefix}/sensor/{self.node_id}/{sensor_name}/config"
+            integration = config.get("integration", "sensor")
+            discovery_topic = f"{self.discovery_topic_prefix}/{integration}/{self.node_id}/{sensor_name}/config"
             # Construct the configuration payload
             payload: dict[str, Any] = (
                 {
@@ -142,7 +146,7 @@ class ConfigPublisher:
                     "state_topic": f"{self.state_topic_prefix}/{sensor_name}",
                     "unique_id": f"{self.node_id}_{sensor_name}",
                 }
-                | metadata
+                | config.get("metadata", {})
                 | self.device_description
             )
 

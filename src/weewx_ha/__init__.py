@@ -9,7 +9,7 @@
 # isort: off
 
 from ._version import __version__  # noqa: F401
-from .utils import UnitSystem, get_key_metadata, get_unit_metadata
+from .utils import UnitSystem, get_key_config, get_unit_metadata
 from .models import ExtensionConfig, MQTTConfig
 from .config_publisher import ConfigPublisher
 from .state_publisher import StatePublisher
@@ -22,7 +22,7 @@ __all__ = [
     "ConfigPublisher",
     "Controller",
     "ExtensionConfig",
-    "get_key_metadata",
+    "get_key_config",
     "get_unit_metadata",
     "MQTTConfig",
     "StatePublisher",
