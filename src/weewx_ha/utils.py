@@ -114,27 +114,28 @@ def get_key_metadata(weewx_key: str) -> dict[str, Any]:
         key_split = key_split.replace("Rx ", "Receive ", 1)
 
     # Guess at an icon and class
-    icon = None
-    device_class = None
+    guess: dict[str, bool | str] = {"name": key_split}
     if "alarm" in key_split.lower():
-        icon = "mdi:alarm-light"
+        guess["icon"] = "mdi:alarm-light"
+        guess["enabled_by_default"] = False
     elif "battery" in key_split.lower():
-        device_class = "battery"
-        icon = "mdi:battery-outline"
+        guess["device_class"] = "battery"
+        guess["icon"] = "mdi:battery-outline"
     elif "humidity" in key_split.lower():
-        device_class = "humidity"
-        icon = "mdi:water-percent"
+        guess["device_class"] = "humidity"
+        guess["icon"] = "mdi:water-percent"
     elif "pressure" in key_split.lower():
-        device_class = "pressure"
-        icon = "mdi:gauge"
+        guess["device_class"] = "pressure"
+        guess["icon"] = "mdi:gauge"
     elif "temperature" in key_split.lower():
-        device_class = "temperature"
-        icon = "mdi:thermometer"
+        guess["device_class"] = "temperature"
+        guess["icon"] = "mdi:thermometer"
     elif "wind" in key_split.lower():
-        device_class = "wind_speed"
-        icon = "mdi:windsock"
+        guess["device_class"] = "wind_speed"
+        guess["icon"] = "mdi:windsock"
 
-    return {"name": key_split, "icon": icon, "device_class": device_class}
+    logger.warning("Guessed metadata for key '%s': %s", weewx_key, guess)
+    return guess
 
 
 UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
@@ -223,8 +224,9 @@ UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
     },
 }
 
-KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
+KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
     "ET": {
+        "enabled_by_default": False,
         "icon": "mdi:waves-arrow-up",
         "name": "Evapotranspiration",
     },
@@ -294,8 +296,14 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "icon": "mdi:snowflake-thermometer",
         "name": "Cooling Degree Days",
     },
-    "dateTime": {"device_class": "timestamp", "icon": "mdi:clock", "name": "Date Time"},
+    "dateTime": {
+        "enabled_by_default": False,
+        "device_class": "timestamp",
+        "icon": "mdi:clock",
+        "name": "Date Time",
+    },
     "dayET": {
+        "enabled_by_default": False,
         "icon": "mdi:waves-arrow-up",
         "name": "Day Evapotranspiration",
     },
@@ -315,6 +323,7 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Dew Point Temperature",
     },
     "extraAlarm": {
+        "enabled_by_default": False,
         "icon": "mdi:alarm-light",
         "name": "Extra Alarm",
     },
@@ -386,6 +395,7 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Illuminance",
     },
     "insideAlarm": {
+        "enabled_by_default": False,
         "icon": "mdi:alarm-light",
         "name": "Inside Alarm",
     },
@@ -443,6 +453,7 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Maximum Solar Radiation",
     },
     "monthET": {
+        "enabled_by_default": False,
         "icon": "mdi:waves-arrow-up",
         "name": "Month Evapotranspiration",
     },
@@ -476,6 +487,7 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Outdoor Humidity",
     },
     "outsideAlarm": {
+        "enabled_by_default": False,
         "icon": "mdi:alarm-light",
         "name": "Outside Alarm",
     },
@@ -561,6 +573,7 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Receive Check Percentage",
     },
     "soilLeafAlarm": {
+        "enabled_by_default": False,
         "icon": "mdi:alarm-light",
         "name": "Soil Leaf Alarm",
     },
@@ -702,6 +715,7 @@ KEY_METADATA: dict[str, dict[str, Optional[str | dict]]] = {
         "name": "Wind Vector Speed",
     },
     "yearET": {
+        "enabled_by_default": False,
         "icon": "mdi:waves-arrow-up",
         "name": "Year Evapotranspiration",
     },
