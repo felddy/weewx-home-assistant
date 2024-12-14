@@ -226,502 +226,716 @@ UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
 
 KEY_METADATA: dict[str, dict[str, Optional[bool | dict | str]]] = {
     "ET": {
-        "enabled_by_default": False,
-        "icon": "mdi:waves-arrow-up",
-        "name": "Evapotranspiration",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:waves-arrow-up",
+            "name": "Evapotranspiration",
+        },
     },
     "THSW": {
-        "icon": "mdi:thermometer-lines",
-        "name": "Temperature Humidity Sun Wind Index",
+        "metadata": {
+            "icon": "mdi:thermometer-lines",
+            "name": "Temperature Humidity Sun Wind Index",
+        },
     },
-    "UV": {"icon": "mdi:sun-wireless", "name": "UV Index"},
+    "UV": {
+        "metadata": {"icon": "mdi:sun-wireless", "name": "UV Index"},
+    },
     "altimeter": {
-        "device_class": "atmospheric_pressure",
-        "icon": "mdi:altimeter",
-        "name": "Pressure Altimeter",
+        "metadata": {
+            "device_class": "atmospheric_pressure",
+            "icon": "mdi:altimeter",
+            "name": "Pressure Altimeter",
+        },
     },
     "altimeterRate": {
-        "icon": "mdi:altimeter",
-        "name": "Altimeter Rate",
+        "metadata": {
+            "icon": "mdi:altimeter",
+            "name": "Altimeter Rate",
+        },
     },
     "altitude": {
-        "device_class": "distance",
-        "icon": "mdi:altimeter",
-        "name": "Altitude",
+        "metadata": {
+            "device_class": "distance",
+            "icon": "mdi:altimeter",
+            "name": "Altitude",
+        },
     },
     "appTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer-lines",
-        "name": "Apparent Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer-lines",
+            "name": "Apparent Temperature",
+        },
     },
     "barometer": {
-        "device_class": "atmospheric_pressure",
-        "icon": "mdi:gauge",
-        "name": "Barometric Pressure",
+        "metadata": {
+            "device_class": "atmospheric_pressure",
+            "icon": "mdi:gauge",
+            "name": "Barometric Pressure",
+        },
     },
     "barometerRate": {
-        "icon": "mdi:gauge",
-        "name": "Barometric Pressure Rate",
+        "metadata": {
+            "icon": "mdi:gauge",
+            "name": "Barometric Pressure Rate",
+        },
     },
     "beaufort": {
-        "device_class": "enum",
-        "icon": "mdi:windsock",
-        "name": "Beaufort Scale",
+        "metadata": {
+            "device_class": "enum",
+            "icon": "mdi:windsock",
+            "name": "Beaufort Scale",
+        },
     },
     "cloudbase": {
-        "device_class": "distance",
-        "icon": "mdi:cloud-arrow-down",
-        "name": "Cloud Base Height",
+        "metadata": {
+            "device_class": "distance",
+            "icon": "mdi:cloud-arrow-down",
+            "name": "Cloud Base Height",
+        },
     },
     "cloudcover": {
-        "icon": "mdi:weather-cloudy-alert",
-        "name": "Cloud Cover",
+        "metadata": {
+            "icon": "mdi:weather-cloudy-alert",
+            "name": "Cloud Cover",
+        },
     },
     "co": {
-        "device_class": "carbon_monoxide",
-        "icon": "mdi:molecule-co",
-        "name": "Carbon Monoxide",
+        "metadata": {
+            "device_class": "carbon_monoxide",
+            "icon": "mdi:molecule-co",
+            "name": "Carbon Monoxide",
+        },
     },
     "co2": {
-        "device_class": "carbon_dioxide",
-        "icon": "mdi:molecule-co2",
-        "name": "Carbon Dioxide",
+        "metadata": {
+            "device_class": "carbon_dioxide",
+            "icon": "mdi:molecule-co2",
+            "name": "Carbon Dioxide",
+        },
     },
     "consBatteryVoltage": {
-        "device_class": "voltage",
-        "icon": "mdi:sine-wave",
-        "name": "Console Battery Voltage",
+        "metadata": {
+            "device_class": "voltage",
+            "icon": "mdi:sine-wave",
+            "name": "Console Battery Voltage",
+        },
     },
     "cooldeg": {
-        "icon": "mdi:snowflake-thermometer",
-        "name": "Cooling Degree Days",
+        "metadata": {
+            "icon": "mdi:snowflake-thermometer",
+            "name": "Cooling Degree Days",
+        },
     },
     "dateTime": {
-        "enabled_by_default": False,
-        "device_class": "timestamp",
-        "icon": "mdi:clock",
-        "name": "Date Time",
+        "metadata": {
+            "enabled_by_default": False,
+            "device_class": "timestamp",
+            "icon": "mdi:clock",
+            "name": "Date Time",
+        },
     },
     "dayET": {
-        "enabled_by_default": False,
-        "icon": "mdi:waves-arrow-up",
-        "name": "Day Evapotranspiration",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:waves-arrow-up",
+            "name": "Day Evapotranspiration",
+        },
     },
     "dayRain": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "Day Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "Day Rainfall",
+        },
     },
     "daySunshineDur": {
-        "device_class": "duration",
-        "icon": "mdi:sun-clock",
-        "name": "Day Sunshine Duration",
+        "metadata": {
+            "device_class": "duration",
+            "icon": "mdi:sun-clock",
+            "name": "Day Sunshine Duration",
+        },
     },
     "dewpoint": {
-        "device_class": "temperature",
-        "icon": "mdi:water-thermometer",
-        "name": "Dew Point Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:water-thermometer",
+            "name": "Dew Point Temperature",
+        },
     },
     "extraAlarm": {
-        "enabled_by_default": False,
-        "icon": "mdi:alarm-light",
-        "name": "Extra Alarm",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:alarm-light",
+            "name": "Extra Alarm",
+        },
     },
     "extraHumid": {
-        "device_class": "humidity",
-        "icon": "mdi:water-percent",
-        "name": "Extra Humidity",
+        "metadata": {
+            "device_class": "humidity",
+            "icon": "mdi:water-percent",
+            "name": "Extra Humidity",
+        },
     },
     "extraTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer",
-        "name": "Extra Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer",
+            "name": "Extra Temperature",
+        },
     },
     "forecastIcon": {
-        "icon": "mdi:image-frame",
-        "name": "Forecast Icon",
+        "metadata": {
+            "icon": "mdi:image-frame",
+            "name": "Forecast Icon",
+        },
     },
     "forecastRule": {
-        "icon": "mdi:format-list-numbered",
-        "name": "Forecast Rule",
+        "metadata": {
+            "icon": "mdi:format-list-numbered",
+            "name": "Forecast Rule",
+        },
     },
     "growdeg": {
-        "icon": "mdi:sprout",
-        "name": "Growing Degree Days",
+        "metadata": {
+            "icon": "mdi:sprout",
+            "name": "Growing Degree Days",
+        },
     },
     "gustdir": {
-        "icon": "mdi:compass-rose",
-        "name": "Wind Gust Direction",
+        "metadata": {
+            "icon": "mdi:compass-rose",
+            "name": "Wind Gust Direction",
+        },
     },
     "hail": {
-        "device_class": "precipitation",
-        "icon": "mdi:weather-hail",
-        "name": "Hailfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:weather-hail",
+            "name": "Hailfall",
+        },
     },
-    "hailRate": {"icon": "mdi:weather-hail", "name": "Hail Rate"},
+    "hailRate": {
+        "metadata": {"icon": "mdi:weather-hail", "name": "Hail Rate"},
+    },
     "heatdeg": {
-        "icon": "mdi:sun-thermometer",
-        "name": "Heating Degree Days",
+        "metadata": {
+            "icon": "mdi:sun-thermometer",
+            "name": "Heating Degree Days",
+        },
     },
     "heatindex": {
-        "device_class": "temperature",
-        "icon": "mdi:sun-thermometer",
-        "name": "Heat Index",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:sun-thermometer",
+            "name": "Heat Index",
+        },
     },
     "heatingTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:sun-thermometer",
-        "name": "Heating Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:sun-thermometer",
+            "name": "Heating Temperature",
+        },
     },
     "heatingVoltage": {
-        "device_class": "voltage",
-        "icon": "mdi:sine-wave",
-        "name": "Heating Voltage",
+        "metadata": {
+            "device_class": "voltage",
+            "icon": "mdi:sine-wave",
+            "name": "Heating Voltage",
+        },
     },
     "highOutTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer-high",
-        "name": "High Outdoor Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer-high",
+            "name": "High Outdoor Temperature",
+        },
     },
     "hourRain": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "Hourly Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "Hourly Rainfall",
+        },
     },
-    "humidex": {"icon": "mdi:water-percent", "name": "Humidex"},
+    "humidex": {
+        "metadata": {"icon": "mdi:water-percent", "name": "Humidex"},
+    },
     "illuminance": {
-        "device_class": "illuminance",
-        "icon": "mdi:sun-wireless",
-        "name": "Illuminance",
+        "metadata": {
+            "device_class": "illuminance",
+            "icon": "mdi:sun-wireless",
+            "name": "Illuminance",
+        },
     },
     "insideAlarm": {
-        "enabled_by_default": False,
-        "icon": "mdi:alarm-light",
-        "name": "Inside Alarm",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:alarm-light",
+            "name": "Inside Alarm",
+        },
     },
     "inDewpoint": {
-        "device_class": "temperature",
-        "icon": "mdi:water-thermometer",
-        "name": "Indoor Dew Point",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:water-thermometer",
+            "name": "Indoor Dew Point",
+        },
     },
     "inHumidity": {
-        "device_class": "humidity",
-        "icon": "mdi:water-percent",
-        "name": "Indoor Humidity",
+        "metadata": {
+            "device_class": "humidity",
+            "icon": "mdi:water-percent",
+            "name": "Indoor Humidity",
+        },
     },
     "inTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer",
-        "name": "Indoor Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer",
+            "name": "Indoor Temperature",
+        },
     },
-    "interval": {"icon": "mdi:repeat", "name": "Interval"},
+    "interval": {
+        "metadata": {"icon": "mdi:repeat", "name": "Interval"},
+    },
     "leafTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:leaf-maple",
-        "name": "Leaf Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:leaf-maple",
+            "name": "Leaf Temperature",
+        },
     },
     "leafWet": {
-        "device_class": "moisture",
-        "icon": "mdi:leaf-maple",
-        "name": "Leaf Wetness",
+        "metadata": {
+            "device_class": "moisture",
+            "icon": "mdi:leaf-maple",
+            "name": "Leaf Wetness",
+        },
     },
     "lightning_distance": {
-        "device_class": "distance",
-        "icon": "mdi:flash",
-        "name": "Lightning Distance",
+        "metadata": {
+            "device_class": "distance",
+            "icon": "mdi:flash",
+            "name": "Lightning Distance",
+        },
     },
     "lightning_disturber_count": {
-        "icon": "mdi:flash",
-        "name": "Lightning Disturber Count",
+        "metadata": {
+            "icon": "mdi:flash",
+            "name": "Lightning Disturber Count",
+        },
     },
     "lightning_noise_count": {
-        "icon": "mdi:flash",
-        "name": "Lightning Noise Count",
+        "metadata": {
+            "icon": "mdi:flash",
+            "name": "Lightning Noise Count",
+        },
     },
     "lightning_strike_count": {
-        "icon": "mdi:flash",
-        "name": "Lightning Strike Count",
+        "metadata": {
+            "icon": "mdi:flash",
+            "name": "Lightning Strike Count",
+        },
     },
     "lowOutTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer-low",
-        "name": "Low Outdoor Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer-low",
+            "name": "Low Outdoor Temperature",
+        },
     },
     "maxSolarRad": {
-        "device_class": "irradiance",
-        "icon": "mdi:sun-wireless",
-        "name": "Maximum Solar Radiation",
+        "metadata": {
+            "device_class": "irradiance",
+            "icon": "mdi:sun-wireless",
+            "name": "Maximum Solar Radiation",
+        },
     },
     "monthET": {
-        "enabled_by_default": False,
-        "icon": "mdi:waves-arrow-up",
-        "name": "Month Evapotranspiration",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:waves-arrow-up",
+            "name": "Month Evapotranspiration",
+        },
     },
     "monthRain": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "Monthly Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "Monthly Rainfall",
+        },
     },
     "nh3": {
-        "icon": "mdi:chemical-weapon",
-        "name": "Ammonia Concentration",
+        "metadata": {
+            "icon": "mdi:chemical-weapon",
+            "name": "Ammonia Concentration",
+        },
     },
     "no2": {
-        "device_class": "nitrogen_dioxide",
-        "icon": "mdi:chemical-weapon",
-        "name": "Nitrogen Dioxide Concentration",
+        "metadata": {
+            "device_class": "nitrogen_dioxide",
+            "icon": "mdi:chemical-weapon",
+            "name": "Nitrogen Dioxide Concentration",
+        },
     },
     "noise": {
-        "device_class": "sound_pressure",
-        "icon": "mdi:volume-vibrate",
-        "name": "Noise Level",
+        "metadata": {
+            "device_class": "sound_pressure",
+            "icon": "mdi:volume-vibrate",
+            "name": "Noise Level",
+        },
     },
     "o3": {
-        "device_class": "ozone",
-        "icon": "mdi:chemical-weapon",
-        "name": "Ozone Concentration",
+        "metadata": {
+            "device_class": "ozone",
+            "icon": "mdi:chemical-weapon",
+            "name": "Ozone Concentration",
+        },
     },
     "outHumidity": {
-        "device_class": "humidity",
-        "icon": "mdi:water-percent",
-        "name": "Outdoor Humidity",
+        "metadata": {
+            "device_class": "humidity",
+            "icon": "mdi:water-percent",
+            "name": "Outdoor Humidity",
+        },
     },
     "outsideAlarm": {
-        "enabled_by_default": False,
-        "icon": "mdi:alarm-light",
-        "name": "Outside Alarm",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:alarm-light",
+            "name": "Outside Alarm",
+        },
     },
     "outTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer",
-        "name": "Outdoor Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer",
+            "name": "Outdoor Temperature",
+        },
     },
     "outWetbulb": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer-water",
-        "name": "Outdoor Wetbulb Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer-water",
+            "name": "Outdoor Wetbulb Temperature",
+        },
     },
     "pb": {
-        "icon": "mdi:chemical-weapon",
-        "name": "Lead Concentration",
+        "metadata": {
+            "icon": "mdi:chemical-weapon",
+            "name": "Lead Concentration",
+        },
     },
     "pm10_0": {
-        "device_class": "pm10",
-        "icon": "mdi:air-filter",
-        "name": "PM10 Concentration",
+        "metadata": {
+            "device_class": "pm10",
+            "icon": "mdi:air-filter",
+            "name": "PM10 Concentration",
+        },
     },
     "pm1_0": {
-        "device_class": "pm1",
-        "icon": "mdi:air-filter",
-        "name": "PM1.0 Concentration",
+        "metadata": {
+            "device_class": "pm1",
+            "icon": "mdi:air-filter",
+            "name": "PM1.0 Concentration",
+        },
     },
     "pm2_5": {
-        "device_class": "pm25",
-        "icon": "mdi:air-filter",
-        "name": "PM2.5 Concentration",
+        "metadata": {
+            "device_class": "pm25",
+            "icon": "mdi:air-filter",
+            "name": "PM2.5 Concentration",
+        },
     },
     "pop": {
-        "icon": "mdi:cloud-percent",
-        "name": "Probability of Precipitation",
+        "metadata": {
+            "icon": "mdi:cloud-percent",
+            "name": "Probability of Precipitation",
+        },
     },
     "pressure": {
-        "device_class": "atmospheric_pressure",
-        "icon": "mdi:gauge",
-        "name": "Atmospheric Pressure",
+        "metadata": {
+            "device_class": "atmospheric_pressure",
+            "icon": "mdi:gauge",
+            "name": "Atmospheric Pressure",
+        },
     },
     "pressureRate": {
-        "icon": "mdi:gauge",
-        "name": "Pressure Rate",
+        "metadata": {
+            "icon": "mdi:gauge",
+            "name": "Pressure Rate",
+        },
     },
     "radiation": {
-        "device_class": "irradiance",
-        "icon": "mdi:radioactive",
-        "name": "Solar Radiation",
+        "metadata": {
+            "device_class": "irradiance",
+            "icon": "mdi:radioactive",
+            "name": "Solar Radiation",
+        },
     },
     "rain": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "Rainfall",
+        },
     },
     "rain24": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "24-Hour Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "24-Hour Rainfall",
+        },
     },
     "rainDur": {
-        "device_class": "duration",
-        "icon": "mdi:timer",
-        "name": "Rain Duration",
+        "metadata": {
+            "device_class": "duration",
+            "icon": "mdi:timer",
+            "name": "Rain Duration",
+        },
     },
     "rainRate": {
-        "device_class": "precipitation_intensity",
-        "icon": "mdi:weather-pouring",
-        "name": "Rain Rate",
+        "metadata": {
+            "device_class": "precipitation_intensity",
+            "icon": "mdi:weather-pouring",
+            "name": "Rain Rate",
+        },
     },
     "referenceVoltage": {
-        "device_class": "voltage",
-        "icon": "mdi:sine-wave",
-        "name": "Reference Voltage",
+        "metadata": {
+            "device_class": "voltage",
+            "icon": "mdi:sine-wave",
+            "name": "Reference Voltage",
+        },
     },
     "rms": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "Root Mean Square Wind Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "Root Mean Square Wind Speed",
+        },
     },
     "rxCheckPercent": {
-        "icon": "mdi:radio-tower",
-        "name": "Receive Check Percentage",
+        "metadata": {
+            "icon": "mdi:radio-tower",
+            "name": "Receive Check Percentage",
+        },
     },
     "soilLeafAlarm": {
-        "enabled_by_default": False,
-        "icon": "mdi:alarm-light",
-        "name": "Soil Leaf Alarm",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:alarm-light",
+            "name": "Soil Leaf Alarm",
+        },
     },
     "snow": {
-        "device_class": "precipitation",
-        "icon": "mdi:weather-snowy-heavy",
-        "name": "Snowfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:weather-snowy-heavy",
+            "name": "Snowfall",
+        },
     },
     "snowDepth": {
-        "device_class": "distance",
-        "icon": "mdi:snowflake",
-        "name": "Snow Depth",
+        "metadata": {
+            "device_class": "distance",
+            "icon": "mdi:snowflake",
+            "name": "Snow Depth",
+        },
     },
     "snowMoisture": {
-        "device_class": "moisture",
-        "icon": "mdi:snowflake-melt",
-        "name": "Snow Moisture Content",
+        "metadata": {
+            "device_class": "moisture",
+            "icon": "mdi:snowflake-melt",
+            "name": "Snow Moisture Content",
+        },
     },
     "snowRate": {
-        "device_class": "precipitation_intensity",
-        "icon": "mdi:snowflake",
-        "name": "Snow Rate",
+        "metadata": {
+            "device_class": "precipitation_intensity",
+            "icon": "mdi:snowflake",
+            "name": "Snow Rate",
+        },
     },
     "so2": {
-        "device_class": "sulphur_dioxide",
-        "icon": "mdi:chemical-weapon",
-        "name": "Sulfur Dioxide Concentration",
+        "metadata": {
+            "device_class": "sulphur_dioxide",
+            "icon": "mdi:chemical-weapon",
+            "name": "Sulfur Dioxide Concentration",
+        },
     },
     "soilMoist": {
-        "device_class": "moisture",
-        "icon": "mdi:water-percent",
-        "name": "Soil Moisture",
+        "metadata": {
+            "device_class": "moisture",
+            "icon": "mdi:water-percent",
+            "name": "Soil Moisture",
+        },
     },
     "soilTemp": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer",
-        "name": "Soil Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer",
+            "name": "Soil Temperature",
+        },
     },
     "stormRain": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "Storm Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "Storm Rainfall",
+        },
     },
     "stormStart": {
-        "device_class": "timestamp",
-        "icon": "mdi:clock-start",
-        "name": "Storm Start Time",
+        "metadata": {
+            "device_class": "timestamp",
+            "icon": "mdi:clock-start",
+            "name": "Storm Start Time",
+        },
     },
     "sunrise": {
-        "device_class": "timestamp",
-        "icon": "mdi:weather-sunset-up",
-        "name": "Sunrise",
+        "metadata": {
+            "device_class": "timestamp",
+            "icon": "mdi:weather-sunset-up",
+            "name": "Sunrise",
+        },
     },
     "sunset": {
-        "device_class": "timestamp",
-        "icon": "mdi:weather-sunset-down",
-        "name": "Sunset",
+        "metadata": {
+            "device_class": "timestamp",
+            "icon": "mdi:weather-sunset-down",
+            "name": "Sunset",
+        },
     },
     "sunshineDur": {
-        "device_class": "duration",
-        "icon": "mdi:sun-clock",
-        "name": "Sunshine Duration",
+        "metadata": {
+            "device_class": "duration",
+            "icon": "mdi:sun-clock",
+            "name": "Sunshine Duration",
+        },
     },
     "supplyVoltage": {
-        "device_class": "voltage",
-        "icon": "mdi:sine-wave",
-        "name": "Supply Voltage",
+        "metadata": {
+            "device_class": "voltage",
+            "icon": "mdi:sine-wave",
+            "name": "Supply Voltage",
+        },
     },
     "totalRain": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "Total Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "Total Rainfall",
+        },
     },
     "usUnits": {
-        "attributes": {"options": "{{ ['METRIC','METRICWX','US'] }}"},
-        "device_class": "enum",
-        "icon": "mdi:scale-balance",
-        "name": "Units",
+        "metadata": {
+            "attributes": {"options": "{{ ['METRIC','METRICWX','US'] }}"},
+            "device_class": "enum",
+            "icon": "mdi:scale-balance",
+            "name": "Units",
+        },
     },
     "vecavg": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "Vector Average Wind Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "Vector Average Wind Speed",
+        },
     },
     "vecdir": {
-        "icon": "mdi:compass-rose",
-        "name": "Vector Direction",
+        "metadata": {
+            "icon": "mdi:compass-rose",
+            "name": "Vector Direction",
+        },
     },
     "wind": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "Wind Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "Wind Speed",
+        },
     },
     "windDir": {
-        "icon": "mdi:compass-rose",
-        "name": "Wind Direction",
+        "metadata": {
+            "icon": "mdi:compass-rose",
+            "name": "Wind Direction",
+        },
     },
     "windDir10": {
-        "icon": "mdi:compass-rose",
-        "name": "10-Minute Wind Direction",
+        "metadata": {
+            "icon": "mdi:compass-rose",
+            "name": "10-Minute Wind Direction",
+        },
     },
     "windGust": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "Wind Gust Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "Wind Gust Speed",
+        },
     },
     "windGustDir": {
-        "icon": "mdi:compass-rose",
-        "name": "Wind Gust Direction",
+        "metadata": {
+            "icon": "mdi:compass-rose",
+            "name": "Wind Gust Direction",
+        },
     },
     "windSpeed": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "Wind Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "Wind Speed",
+        },
     },
     "windSpeed10": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "10-Minute Wind Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "10-Minute Wind Speed",
+        },
     },
     "windchill": {
-        "device_class": "temperature",
-        "icon": "mdi:thermometer",
-        "name": "Wind Chill Temperature",
+        "metadata": {
+            "device_class": "temperature",
+            "icon": "mdi:thermometer",
+            "name": "Wind Chill Temperature",
+        },
     },
     "windgustvec": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "Wind Gust Vector Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "Wind Gust Vector Speed",
+        },
     },
-    "windrun": {
-        "device_class": "distance",
-        "icon": "mdi:windsock",
-        "name": "Wind Run Distance",
+    "windburn": {
+        "metadata": {
+            "device_class": "distance",
+            "icon": "mdi:windsock",
+            "name": "Wind Run Distance",
+        },
     },
     "windvec": {
-        "device_class": "wind_speed",
-        "icon": "mdi:windsock",
-        "name": "Wind Vector Speed",
+        "metadata": {
+            "device_class": "wind_speed",
+            "icon": "mdi:windsock",
+            "name": "Wind Vector Speed",
+        },
     },
     "yearET": {
-        "enabled_by_default": False,
-        "icon": "mdi:waves-arrow-up",
-        "name": "Year Evapotranspiration",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:waves-arrow-up",
+            "name": "Year Evapotranspiration",
+        },
     },
     "yearRain": {
-        "device_class": "precipitation",
-        "icon": "mdi:cup-water",
-        "name": "Yearly Rainfall",
+        "metadata": {
+            "device_class": "precipitation",
+            "icon": "mdi:cup-water",
+            "name": "Yearly Rainfall",
+        },
     },
 }
