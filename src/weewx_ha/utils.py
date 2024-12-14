@@ -1,7 +1,7 @@
 """Utility functions and data."""
 
 # Standard Python Libraries
-from copy import copy, deepcopy
+from copy import deepcopy
 from datetime import datetime, timezone
 from enum import Enum
 import logging
@@ -95,7 +95,7 @@ def get_key_config(weewx_key: str) -> dict[str, Any]:
     if match:
         base_key, suffix = match.groups()
         # If the base key is found in the known keys mapping, construct the friendly name
-        config = copy(KEY_CONFIG.get(base_key))
+        config = deepcopy(KEY_CONFIG.get(base_key))
         if config:
             config["metadata"]["name"] = f"{config['metadata']['name']} {suffix}"
             return config
@@ -567,6 +567,7 @@ KEY_CONFIG: dict[str, Any] = {
     },
     "maxSolarRad": {
         "metadata": {
+            "enabled_by_default": False,
             "device_class": "irradiance",
             "icon": "mdi:sun-wireless",
             "name": "Maximum Solar Radiation",
