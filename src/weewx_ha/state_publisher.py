@@ -26,15 +26,12 @@ class StatePublisher:
         The prefix for the MQTT topic where state updates will be published.
     unit_system : UnitSystem
         The unit system to use for the state updates.
-    filter_keys : set of str
-        A set of keys to filter the state updates.
     """
 
     def __init__(
         self,
         mqtt_client: mqtt.Client,
         state_topic_prefix: str,
-        filter_keys: set[str],
         unit_system: UnitSystem = UnitSystem.METRICWX,
     ):
         """
@@ -46,12 +43,9 @@ class StatePublisher:
             The MQTT client used for publishing state updates.
         state_topic_prefix : str
             The prefix for the MQTT topic where state updates will be published.
-        filter_keys : set of str
-            A set of keys to filter the state updates. Only the keys in this set will be published.
         unit_system : UnitSystem, optional
             The unit system to use for the state updates. Default is UnitSystem.METRICWX.
         """
-        self.filter_keys = filter_keys or set()
         self.mqtt_client = mqtt_client
         self.state_topic_prefix = state_topic_prefix
         self.unit_system = unit_system
@@ -62,7 +56,7 @@ class StatePublisher:
         if self.unit_system is not None:
             packet = to_std_system(packet, int(self.unit_system))
         for key, value in packet.items():
-            if value is None or key in self.filter_keys:
+            if value is None:
                 # Publishing None values angers Home Assistant when processing templates
                 continue
             if key in DATETIME_KEYS:

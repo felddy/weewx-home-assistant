@@ -25,8 +25,6 @@ class ConfigPublisher:
         The MQTT topic for availability status.
     discovery_topic_prefix : str
         The prefix for MQTT discovery topics.
-    filter_keys : set of str
-        A set of keys to filter the measurements.
     mqtt_client : mqtt.Client
         The MQTT client used for publishing messages.
     node_id : str
@@ -47,7 +45,6 @@ class ConfigPublisher:
         state_topic_prefix: str,
         node_id: str,
         station_info: StationInfo,
-        filter_keys: set[str],
         unit_system: UnitSystem = UnitSystem.METRICWX,
     ):
         """
@@ -67,14 +64,11 @@ class ConfigPublisher:
             The unique identifier for the node.
         station_info : StationInfo
             The weather station information.
-        filter_keys : set of str
-            A set of keys to filter the measurements.
         unit_system : UnitSystem, optional
             The unit system to use for measurements (default is UnitSystem.METRICWX).
         """
         self.availability_topic: str = availability_topic
         self.discovery_topic_prefix: str = discovery_topic_prefix
-        self.filter_keys: set[str] = filter_keys or set()
         self.mqtt_client: mqtt.Client = mqtt_client
         self.node_id: str = node_id
         self.state_topic_prefix: str = state_topic_prefix
@@ -113,8 +107,6 @@ class ConfigPublisher:
         if self.unit_system is not None:
             packet = to_std_system(packet, int(self.unit_system))
         for key in packet.keys():
-            if key in self.filter_keys:
-                continue
             if key not in self.seen_measurements:
                 logger.debug(f"Discovered new measurement: {key}")
                 found_new_measurements = True

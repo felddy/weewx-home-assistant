@@ -5,7 +5,7 @@ import logging
 from typing import Any, Dict
 
 # Third-Party Libraries
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from . import MQTTConfig, StationInfo
 from .. import UnitSystem
@@ -21,9 +21,6 @@ class ExtensionConfig(BaseModel):
     discovery_topic_prefix: str = Field(
         default="homeassistant", description="Prefix for the MQTT discovery topic"
     )
-    filter_keys: set[str] = Field(
-        default_factory=lambda: {"dateTime"}, description="Keys to filter measurements"
-    )
     mqtt: MQTTConfig = Field(..., description="MQTT broker configuration")
     node_id: str = Field(
         ...,
@@ -38,19 +35,6 @@ class ExtensionConfig(BaseModel):
     unit_system: UnitSystem = Field(
         default=UnitSystem.METRICWX, description="Unit system for measurements"
     )
-
-    # Custom validator to convert comma-delimited string to set for filter_keys
-    @field_validator("filter_keys", mode="before")
-    @classmethod
-    def validate_filter_keys(cls, value: Any) -> set[str]:
-        """Validate and convert the input value to a set of filter keys."""
-        if isinstance(value, str):
-            return set(value.split(","))
-        elif isinstance(value, set):
-            return value
-        elif isinstance(value, list):
-            return set(value)
-        raise ValueError("filter_keys must be a comma-separated string, list, or set.")
 
     @classmethod
     def from_config_dict(

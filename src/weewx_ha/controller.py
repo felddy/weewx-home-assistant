@@ -66,7 +66,6 @@ class Controller(StdService):
         self.state_publisher = StatePublisher(
             self.mqtt_client,
             self.config.state_topic_prefix,
-            self.config.filter_keys,
             self.config.unit_system,
         )
         self.config_publisher = ConfigPublisher(
@@ -76,7 +75,6 @@ class Controller(StdService):
             self.config.state_topic_prefix,
             self.config.node_id,
             self.config.station,
-            self.config.filter_keys,
             self.config.unit_system,
         )
 

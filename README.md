@@ -83,7 +83,6 @@ Add a configuration section to the root of the `weewx.conf` file:
 ```ini
 [HomeAssistant]
     discovery_topic_prefix = <default: homeassistant>
-    filter_keys = <default: dateTime,>
     node_id = <required>
     state_topic_prefix = <default: weather>
     unit_system = <default: METRICWX>
