@@ -63,11 +63,6 @@ class Controller(StdService):
         self.executor = ThreadPoolExecutor(max_workers=THREAD_POOL_SIZE)
 
         # Create a publishers
-        self.state_publisher = StatePublisher(
-            self.mqtt_client,
-            self.config.state_topic_prefix,
-            self.config.unit_system,
-        )
         self.config_publisher = ConfigPublisher(
             self.mqtt_client,
             self.availability_topic,
@@ -75,6 +70,13 @@ class Controller(StdService):
             self.config.state_topic_prefix,
             self.config.node_id,
             self.config.station,
+            self.config.unit_system,
+        )
+
+        self.state_publisher = StatePublisher(
+            self.mqtt_client,
+            self.config_publisher,
+            self.config.state_topic_prefix,
             self.config.unit_system,
         )
 
