@@ -105,6 +105,7 @@ Add a configuration section to the root of the `weewx.conf` file:
         manufacturer = <required>
         model = <required>
         name = <required>
+        timezone = <default: UTC>
 ```
 
 > [!NOTE]

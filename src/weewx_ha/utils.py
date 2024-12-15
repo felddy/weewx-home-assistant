@@ -338,7 +338,7 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "dateTime": {
-        "convert_lambda": lambda x: datetime.fromtimestamp(
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(
             x, tz=timezone.utc
         ).isoformat(),
         "metadata": {
@@ -813,9 +813,7 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "stormStart": {  # is sent in localtime
-        "convert_lambda": lambda x: datetime.fromtimestamp(
-            x, tz=datetime.now().astimezone().tzinfo
-        )
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x, tz=cp.time_zone)
         .astimezone(tz=timezone.utc)
         .isoformat(),
         "metadata": {
@@ -825,9 +823,7 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "sunrise": {  # is sent in localtime
-        "convert_lambda": lambda x: datetime.fromtimestamp(
-            x, tz=datetime.now().astimezone().tzinfo
-        )
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x, tz=cp.time_zone)
         .astimezone(tz=timezone.utc)
         .isoformat(),
         "metadata": {
@@ -837,9 +833,7 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "sunset": {  # is sent in localtime
-        "convert_lambda": lambda x: datetime.fromtimestamp(
-            x, tz=datetime.now().astimezone().tzinfo
-        )
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x, tz=cp.time_zone)
         .astimezone(tz=timezone.utc)
         .isoformat(),
         "metadata": {
@@ -870,7 +864,7 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "usUnits": {
-        "convert_lambda": lambda x: str(UnitSystem.from_int(x)),
+        "convert_lambda": lambda x, cp: str(UnitSystem.from_int(x)),
         "metadata": {
             "attributes": {"options": "{{ ['METRIC','METRICWX','US'] }}"},
             "device_class": "enum",
