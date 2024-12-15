@@ -869,7 +869,7 @@ KEY_CONFIG: dict[str, Any] = {
     "usUnits": {
         "convert_lambda": lambda x, cp: str(UnitSystem.from_int(x)),
         "metadata": {
-            "attributes": {"options": "{{ ['METRIC','METRICWX','US'] }}"},
+            "attributes": {"options": f"{{{{ {[str(i) for i in UnitSystem]} }}}}"},
             "device_class": "enum",
             "icon": "mdi:scale-balance",
             "name": "Units",
