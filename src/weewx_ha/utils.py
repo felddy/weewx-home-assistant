@@ -813,7 +813,8 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "stormStart": {  # is sent in localtime
-        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x, tz=cp.time_zone)
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x)
+        .replace(tzinfo=cp.time_zone)
         .astimezone(tz=timezone.utc)
         .isoformat(),
         "metadata": {
@@ -823,7 +824,8 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "sunrise": {  # is sent in localtime
-        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x, tz=cp.time_zone)
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x)
+        .replace(tzinfo=cp.time_zone)
         .astimezone(tz=timezone.utc)
         .isoformat(),
         "metadata": {
@@ -833,7 +835,8 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "sunset": {  # is sent in localtime
-        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x, tz=cp.time_zone)
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x)
+        .replace(tzinfo=cp.time_zone)
         .astimezone(tz=timezone.utc)
         .isoformat(),
         "metadata": {
