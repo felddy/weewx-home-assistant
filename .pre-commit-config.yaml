@@ -24,6 +24,7 @@ repos:
         args:
           - --fix=lf
       - id: pretty-format-json
+        exclude: ^(package-lock\.json|\.vscode/settings\.json)$
         args:
           - --autofix
       - id: requirements-txt-fixer
