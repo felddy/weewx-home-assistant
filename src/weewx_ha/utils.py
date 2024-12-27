@@ -519,6 +519,16 @@ KEY_CONFIG: dict[str, Any] = {
     "interval": {
         "metadata": {"icon": "mdi:repeat", "name": "Interval"},
     },
+    "issBatteryStatus": {
+        "integration": "binary_sensor",
+        "metadata": {
+            "device_class": "battery",
+            "icon": "mdi:battery",
+            "name": "ISS Battery Status",
+            "payload_off": 0,
+            "payload_on": 1,
+        },
+    },
     "leafTemp": {
         "metadata": {
             "device_class": "temperature",

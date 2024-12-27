@@ -16,7 +16,7 @@ import paho.mqtt.client as mqtt
 from weewx import NEW_LOOP_PACKET  # type: ignore
 from weewx.engine import StdEngine, StdService  # type: ignore
 
-from . import ConfigPublisher, StatePublisher
+from . import ConfigPublisher, PacketPreprocessor, StatePublisher
 from .models import ExtensionConfig, MQTTConfig
 
 logger = logging.getLogger(__name__)
@@ -59,8 +59,11 @@ class Controller(StdService):
         self.availability_topic: str = f"{self.config.state_topic_prefix}/status"
         self.mqtt_client: mqtt.Client = self.init_mqtt_client(self.config.mqtt)
 
-        # Thread pool for managing publisher tasks
+        # Thread pool for managing tasks
         self.executor = ThreadPoolExecutor(max_workers=THREAD_POOL_SIZE)
+
+        # Create packet preprocessor
+        self.packet_preprocessor = PacketPreprocessor()
 
         # Create a publishers
         self.config_publisher = ConfigPublisher(
@@ -144,7 +147,7 @@ class Controller(StdService):
             and msg.payload == b"online"
         ):
             future = self.executor.submit(self.config_publisher.publish_discovery)
-            future.add_done_callback(self.check_future_result)
+            future.add_done_callback(self.check_future_errors)
 
     def on_mqtt_subscribe(
         self, client: mqtt.Client, userdata, mid, reason_code_list, properties
@@ -158,44 +161,50 @@ class Controller(StdService):
         """Handle callback for when the broker responds to an unsubscribe request."""
         logger.info(f"Unsubscribed from topic, message ID: {mid}")
 
-    def check_future_result(self, future):
+    def check_future_errors(self, future):
         """Handle callback and check for exceptions in a Future."""
         try:
             future.result()
         except Exception as e:
             logger.error(f"Error in future: {e}", exc_info=True)
 
+    def check_config_update(self, future):
+        """Check if a config update is needed after processing a loop packet."""
+        try:
+            # Get the result of the Future, which will be True or False
+            needs_publish: bool = future.result()
+        except Exception as e:
+            logger.error(f"Error while checking config update: {e}", exc_info=True)
+            return
+        if needs_publish:
+            logger.debug("New measurements found, submitting config update task")
+            future2 = self.executor.submit(self.config_publisher.publish_discovery)
+            future2.add_done_callback(self.check_future_errors)
+
+    def preprocessor_complete(self, future):
+        """Handle callback for when the preprocessor task is complete."""
+        try:
+            packet: dict = future.result()
+        except Exception as e:
+            logger.error(f"Error while pre-processing packet: {e}", exc_info=True)
+            return
+        state_future = self.executor.submit(self.state_publisher.process_packet, packet)
+        # Add callback to state publishing task
+        state_future.add_done_callback(self.check_future_errors)
+        config_future = self.executor.submit(
+            self.config_publisher.process_packet, packet
+        )
+        # Add callbacks to config processing task
+        config_future.add_done_callback(self.check_config_update)
+
     def on_weewx_loop(self, event):
         """Handle callback for WeeWX loop packets."""
         logger.debug("Received WeeWX loop packet")
         if self.mqtt_client.is_connected():
-            state_future = self.executor.submit(
-                self.state_publisher.process_packet, event.packet
+            preprocessor_future = self.executor.submit(
+                self.packet_preprocessor.process_packet, event.packet
             )
-            state_future.add_done_callback(self.check_future_result)
-            config_future = self.executor.submit(
-                self.config_publisher.process_packet, event.packet
-            )
-
-            def check_config_update(future):
-                try:
-                    # Get the result of the Future, which will be True or False
-                    needs_publish = future.result()
-                    if needs_publish:
-                        logger.debug(
-                            "New measurements found, submitting config update task"
-                        )
-                        future2 = self.executor.submit(
-                            self.config_publisher.publish_discovery
-                        )
-                        future2.add_done_callback(self.check_future_result)
-                except Exception as e:
-                    logger.error(
-                        f"Error while checking config update: {e}", exc_info=True
-                    )
-
-            # Add callback to config processing task
-            config_future.add_done_callback(check_config_update)
+            preprocessor_future.add_done_callback(self.preprocessor_complete)
         else:
             logger.warning("MQTT client is not connected, skipping packet processing")
 

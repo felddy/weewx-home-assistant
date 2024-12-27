@@ -13,6 +13,7 @@ from .utils import UnitSystem, get_key_config, get_unit_metadata
 from .models import ExtensionConfig, MQTTConfig
 from .config_publisher import ConfigPublisher
 from .state_publisher import StatePublisher
+from .preprocessor import PacketPreprocessor
 from .controller import Controller
 
 # isort: on
@@ -25,6 +26,7 @@ __all__ = [
     "get_key_config",
     "get_unit_metadata",
     "MQTTConfig",
+    "PacketPreprocessor",
     "StatePublisher",
     "UnitSystem",
 ]
