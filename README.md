@@ -42,7 +42,7 @@ later using [Python](https://www.python.org/) version `3.10` or later.
 ## Installation ##
 
 ```shell
-pip install https://github.com/felddy/weewx-home-assistant/archive/refs/tags/v1.0.0.zip
+pip install git+https://github.com/felddy/weewx-home-assistant@v1.0.0
 ```
 
 ## Configuration ##
