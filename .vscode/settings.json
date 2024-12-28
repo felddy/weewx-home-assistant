@@ -1,0 +1,29 @@
+{
+  "cSpell.words": [
+    "batterystatus",
+    "cadata",
+    "cafile",
+    "capath",
+    "certfile",
+    "Dewpoint",
+    "HAMQTT",
+    "homeassistant",
+    "Humidex",
+    "mbar",
+    "METRICWX",
+    "mqtt",
+    "mqtts",
+    "paho",
+    "pytest",
+    "reqs",
+    "restx",
+    "setuptools",
+    "THSW",
+    "vecavg",
+    "vecdir",
+    "weewx",
+    "Wetbulb",
+    "windgustvec",
+    "windvec"
+  ]
+}

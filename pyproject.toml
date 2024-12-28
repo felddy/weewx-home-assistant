@@ -1,0 +1,44 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools", "wheel"]
+
+[project]
+authors = [{ name = "Mark Feldhousen", email = "markf@geekpad.com" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = ["paho-mqtt", "pydantic", "setuptools"]
+description = "WeeWX Home Assistant Python library"
+dynamic = ["version"]
+keywords = ["home-assistant", "mqtt", "weewx"]
+license = { file = "LICENSE" }
+name = "weewx-home-assistant"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.urls]
+homepage = "https://github.com/felddy"
+issues = "https://github.com/felddy/weewx-home-assistant/issues"
+source = "https://github.com/felddy/weewx-home-assistant"
+
+[project.optional-dependencies]
+test = [
+    "coverage",
+    "coveralls",
+    "pre-commit",
+    "pytest-cov",
+    "pytest",
+    "weewx == 5.1.0",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "weewx_ha._version.__version__" }
