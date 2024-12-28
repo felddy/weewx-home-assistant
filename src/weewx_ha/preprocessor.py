@@ -6,14 +6,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 TX_BATTERY_STATUS_FIELDS = [
-    "issBatteryStatus",
-    "channel1BatteryStatus",
-    "channel2BatteryStatus",
-    "channel3BatteryStatus",
-    "channel4BatteryStatus",
-    "channel5BatteryStatus",
-    "channel6BatteryStatus",
-    "channel7BatteryStatus",
+    "batteryStatusISS",
+    "batteryStatusChannel1",
+    "batteryStatusChannel2",
+    "batteryStatusChannel3",
+    "batteryStatusChannel4",
+    "batteryStatusChannel5",
+    "batteryStatusChannel6",
+    "batteryStatusChannel7",
 ]
 
 

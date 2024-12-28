@@ -121,8 +121,6 @@ def get_key_config(weewx_key: str) -> dict[str, Any]:
     guess: dict[str, Any] = {"metadata": {}}
     if "alarm" in key_split.lower():
         guess = deepcopy(KEY_CONFIG["extraAlarm"])
-    elif "battery status" in key_split.lower():
-        guess = deepcopy(KEY_CONFIG["batteryStatus"])
     elif "humidity" in key_split.lower():
         guess = deepcopy(KEY_CONFIG["outHumidity"])
     elif "pressure" in key_split.lower():
@@ -279,13 +277,23 @@ KEY_CONFIG: dict[str, Any] = {
             "name": "Barometric Pressure Rate",
         },
     },
-    "batteryStatus": {
+    "batteryStatusChannel": {  # used by txBatteryStatus expansions
         "integration": "binary_sensor",
         "metadata": {
             "device_class": "battery",
             "enabled_by_default": False,
             "icon": "mdi:battery",
-            "name": "Battery Status",
+            "name": "Battery Status Channel",
+            "payload_off": 0,
+            "payload_on": 1,
+        },
+    },
+    "batteryStatusISS": {  # used by txBatteryStatus channel 0
+        "integration": "binary_sensor",
+        "metadata": {
+            "device_class": "battery",
+            "icon": "mdi:battery",
+            "name": "ISS Battery Status",
             "payload_off": 0,
             "payload_on": 1,
         },
@@ -518,16 +526,6 @@ KEY_CONFIG: dict[str, Any] = {
     },
     "interval": {
         "metadata": {"icon": "mdi:repeat", "name": "Interval"},
-    },
-    "issBatteryStatus": {
-        "integration": "binary_sensor",
-        "metadata": {
-            "device_class": "battery",
-            "icon": "mdi:battery",
-            "name": "ISS Battery Status",
-            "payload_off": 0,
-            "payload_on": 1,
-        },
     },
     "leafTemp": {
         "metadata": {
