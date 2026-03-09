@@ -37,7 +37,7 @@ test = [
     "pre-commit",
     "pytest-cov",
     "pytest",
-    "weewx == 5.1.0",
+    "weewx == 5.3.1",
 ]
 
 [tool.setuptools.dynamic]
