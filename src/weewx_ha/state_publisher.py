@@ -80,4 +80,4 @@ class StatePublisher:
             if convert_lambda := config.get("convert_lambda"):
                 # Apply conversion lambda if it exists
                 value = convert_lambda(value, self.config_publisher)
-            self.mqtt_client.publish(f"{self.state_topic_prefix}/{key}", value)
+            self.mqtt_client.publish(f"{self.state_topic_prefix}/{key}", value, retain=True)

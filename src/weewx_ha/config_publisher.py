@@ -160,4 +160,4 @@ class ConfigPublisher:
                 f"Publishing discovery configuration: {discovery_topic}: {payload}"
             )
             # Publish the discovery configuration
-            self.mqtt_client.publish(discovery_topic, json.dumps(payload))
+            self.mqtt_client.publish(discovery_topic, json.dumps(payload), retain=True)
