@@ -25,6 +25,8 @@ class StatePublisher:
         The MQTT client used for publishing state updates.
     config_publisher : ConfigPublisher
         The configuration publisher used for looking up measurement metadata.
+    retain : bool
+        Whether state updates are published with the retain flag.
     state_topic_prefix : str
         The prefix for the MQTT topic where state updates will be published.
     unit_system : UnitSystem
@@ -37,6 +39,7 @@ class StatePublisher:
         config_publisher: ConfigPublisher,
         state_topic_prefix: str,
         unit_system: UnitSystem = UnitSystem.METRICWX,
+        retain: bool = False,
     ):
         """
         Initialize the publisher.
@@ -51,9 +54,12 @@ class StatePublisher:
             The prefix for the MQTT topic where state updates will be published.
         unit_system : UnitSystem, optional
             The unit system to use for the state updates. Default is UnitSystem.METRICWX.
+        retain : bool, optional
+            Whether to publish state updates with the retain flag. Default is False.
         """
         self.mqtt_client = mqtt_client
         self.config_publisher = config_publisher
+        self.retain = retain
         self.state_topic_prefix = state_topic_prefix
         self.unit_system = unit_system
         self.settled_countdown = SETTLE_COUNTDOWN_START
@@ -80,4 +86,6 @@ class StatePublisher:
             if convert_lambda := config.get("convert_lambda"):
                 # Apply conversion lambda if it exists
                 value = convert_lambda(value, self.config_publisher)
-            self.mqtt_client.publish(f"{self.state_topic_prefix}/{key}", value)
+            self.mqtt_client.publish(
+                f"{self.state_topic_prefix}/{key}", value, retain=self.retain
+            )

@@ -232,22 +232,29 @@ KEY_CONFIG: dict[str, Any] = {
         "metadata": {
             "icon": "mdi:thermometer-lines",
             "name": "Temperature Humidity Sun Wind Index",
+            "state_class": "measurement",
         },
     },
     "UV": {
-        "metadata": {"icon": "mdi:sun-wireless", "name": "UV Index"},
+        "metadata": {
+            "icon": "mdi:sun-wireless",
+            "name": "UV Index",
+            "state_class": "measurement",
+        },
     },
     "altimeter": {
         "metadata": {
             "device_class": "atmospheric_pressure",
             "icon": "mdi:altimeter",
             "name": "Pressure Altimeter",
+            "state_class": "measurement",
         },
     },
     "altimeterRate": {
         "metadata": {
             "icon": "mdi:altimeter",
             "name": "Altimeter Rate",
+            "state_class": "measurement",
         },
     },
     "altitude": {
@@ -255,6 +262,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "distance",
             "icon": "mdi:altimeter",
             "name": "Altitude",
+            "state_class": "measurement",
         },
     },
     "appTemp": {
@@ -262,6 +270,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer-lines",
             "name": "Apparent Temperature",
+            "state_class": "measurement",
         },
     },
     "barometer": {
@@ -269,12 +278,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "atmospheric_pressure",
             "icon": "mdi:gauge",
             "name": "Barometric Pressure",
+            "state_class": "measurement",
         },
     },
     "barometerRate": {
         "metadata": {
             "icon": "mdi:gauge",
             "name": "Barometric Pressure Rate",
+            "state_class": "measurement",
         },
     },
     "batteryStatusChannel": {  # used by txBatteryStatus expansions
@@ -310,12 +321,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "distance",
             "icon": "mdi:cloud-arrow-down",
             "name": "Cloud Base Height",
+            "state_class": "measurement",
         },
     },
     "cloudcover": {
         "metadata": {
             "icon": "mdi:weather-cloudy-alert",
             "name": "Cloud Cover",
+            "state_class": "measurement",
         },
     },
     "co": {
@@ -323,6 +336,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "carbon_monoxide",
             "icon": "mdi:molecule-co",
             "name": "Carbon Monoxide",
+            "state_class": "measurement",
         },
     },
     "co2": {
@@ -330,6 +344,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "carbon_dioxide",
             "icon": "mdi:molecule-co2",
             "name": "Carbon Dioxide",
+            "state_class": "measurement",
         },
     },
     "consBatteryVoltage": {
@@ -337,12 +352,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "voltage",
             "icon": "mdi:sine-wave",
             "name": "Console Battery Voltage",
+            "state_class": "measurement",
         },
     },
     "cooldeg": {
         "metadata": {
             "icon": "mdi:snowflake-thermometer",
             "name": "Cooling Degree Days",
+            "state_class": "total_increasing",
         },
     },
     "dateTime": {
@@ -361,6 +378,7 @@ KEY_CONFIG: dict[str, Any] = {
             "enabled_by_default": False,
             "icon": "mdi:waves-arrow-up",
             "name": "Day Evapotranspiration",
+            "state_class": "total_increasing",
         },
     },
     "dayRain": {
@@ -368,6 +386,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation",
             "icon": "mdi:cup-water",
             "name": "Day Rainfall",
+            "state_class": "total_increasing",
         },
     },
     "daySunshineDur": {
@@ -375,6 +394,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "duration",
             "icon": "mdi:sun-clock",
             "name": "Day Sunshine Duration",
+            "state_class": "total_increasing",
         },
     },
     "dewpoint": {
@@ -382,6 +402,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:water-thermometer",
             "name": "Dew Point Temperature",
+            "state_class": "measurement",
         },
     },
     "extraAlarm": {
@@ -399,6 +420,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "humidity",
             "icon": "mdi:water-percent",
             "name": "Extra Humidity",
+            "state_class": "measurement",
         },
     },
     "extraTemp": {
@@ -406,6 +428,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer",
             "name": "Extra Temperature",
+            "state_class": "measurement",
         },
     },
     "forecastIcon": {
@@ -424,6 +447,7 @@ KEY_CONFIG: dict[str, Any] = {
         "metadata": {
             "icon": "mdi:sprout",
             "name": "Growing Degree Days",
+            "state_class": "total_increasing",
         },
     },
     "gustdir": {
@@ -440,12 +464,17 @@ KEY_CONFIG: dict[str, Any] = {
         },
     },
     "hailRate": {
-        "metadata": {"icon": "mdi:weather-hail", "name": "Hail Rate"},
+        "metadata": {
+            "icon": "mdi:weather-hail",
+            "name": "Hail Rate",
+            "state_class": "measurement",
+        },
     },
     "heatdeg": {
         "metadata": {
             "icon": "mdi:sun-thermometer",
             "name": "Heating Degree Days",
+            "state_class": "total_increasing",
         },
     },
     "heatindex": {
@@ -453,6 +482,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:sun-thermometer",
             "name": "Heat Index",
+            "state_class": "measurement",
         },
     },
     "heatingTemp": {
@@ -460,6 +490,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:sun-thermometer",
             "name": "Heating Temperature",
+            "state_class": "measurement",
         },
     },
     "heatingVoltage": {
@@ -467,6 +498,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "voltage",
             "icon": "mdi:sine-wave",
             "name": "Heating Voltage",
+            "state_class": "measurement",
         },
     },
     "highOutTemp": {
@@ -474,6 +506,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer-high",
             "name": "High Outdoor Temperature",
+            "state_class": "measurement",
         },
     },
     "hourRain": {
@@ -481,16 +514,22 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation",
             "icon": "mdi:cup-water",
             "name": "Hourly Rainfall",
+            "state_class": "measurement",
         },
     },
     "humidex": {
-        "metadata": {"icon": "mdi:water-percent", "name": "Humidex"},
+        "metadata": {
+            "icon": "mdi:water-percent",
+            "name": "Humidex",
+            "state_class": "measurement",
+        },
     },
     "illuminance": {
         "metadata": {
             "device_class": "illuminance",
             "icon": "mdi:sun-wireless",
             "name": "Illuminance",
+            "state_class": "measurement",
         },
     },
     "insideAlarm": {
@@ -508,6 +547,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:water-thermometer",
             "name": "Indoor Dew Point",
+            "state_class": "measurement",
         },
     },
     "inHumidity": {
@@ -515,6 +555,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "humidity",
             "icon": "mdi:water-percent",
             "name": "Indoor Humidity",
+            "state_class": "measurement",
         },
     },
     "inTemp": {
@@ -522,6 +563,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer",
             "name": "Indoor Temperature",
+            "state_class": "measurement",
         },
     },
     "interval": {
@@ -532,6 +574,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:leaf-maple",
             "name": "Leaf Temperature",
+            "state_class": "measurement",
         },
     },
     "leafWet": {
@@ -539,6 +582,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "moisture",
             "icon": "mdi:leaf-maple",
             "name": "Leaf Wetness",
+            "state_class": "measurement",
         },
     },
     "lightning_distance": {
@@ -546,24 +590,28 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "distance",
             "icon": "mdi:flash",
             "name": "Lightning Distance",
+            "state_class": "measurement",
         },
     },
     "lightning_disturber_count": {
         "metadata": {
             "icon": "mdi:flash",
             "name": "Lightning Disturber Count",
+            "state_class": "total_increasing",
         },
     },
     "lightning_noise_count": {
         "metadata": {
             "icon": "mdi:flash",
             "name": "Lightning Noise Count",
+            "state_class": "total_increasing",
         },
     },
     "lightning_strike_count": {
         "metadata": {
             "icon": "mdi:flash",
             "name": "Lightning Strike Count",
+            "state_class": "total_increasing",
         },
     },
     "lowOutTemp": {
@@ -571,6 +619,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer-low",
             "name": "Low Outdoor Temperature",
+            "state_class": "measurement",
         },
     },
     "maxSolarRad": {
@@ -579,6 +628,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "irradiance",
             "icon": "mdi:sun-wireless",
             "name": "Maximum Solar Radiation",
+            "state_class": "measurement",
         },
     },
     "monthET": {
@@ -586,6 +636,7 @@ KEY_CONFIG: dict[str, Any] = {
             "enabled_by_default": False,
             "icon": "mdi:waves-arrow-up",
             "name": "Month Evapotranspiration",
+            "state_class": "total_increasing",
         },
     },
     "monthRain": {
@@ -593,12 +644,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation",
             "icon": "mdi:cup-water",
             "name": "Monthly Rainfall",
+            "state_class": "total_increasing",
         },
     },
     "nh3": {
         "metadata": {
             "icon": "mdi:chemical-weapon",
             "name": "Ammonia Concentration",
+            "state_class": "measurement",
         },
     },
     "no2": {
@@ -606,6 +659,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "nitrogen_dioxide",
             "icon": "mdi:chemical-weapon",
             "name": "Nitrogen Dioxide Concentration",
+            "state_class": "measurement",
         },
     },
     "noise": {
@@ -613,6 +667,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "sound_pressure",
             "icon": "mdi:volume-vibrate",
             "name": "Noise Level",
+            "state_class": "measurement",
         },
     },
     "o3": {
@@ -620,6 +675,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "ozone",
             "icon": "mdi:chemical-weapon",
             "name": "Ozone Concentration",
+            "state_class": "measurement",
         },
     },
     "outHumidity": {
@@ -627,6 +683,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "humidity",
             "icon": "mdi:water-percent",
             "name": "Outdoor Humidity",
+            "state_class": "measurement",
         },
     },
     "outsideAlarm": {
@@ -644,6 +701,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer",
             "name": "Outdoor Temperature",
+            "state_class": "measurement",
         },
     },
     "outWetbulb": {
@@ -651,12 +709,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer-water",
             "name": "Outdoor Wetbulb Temperature",
+            "state_class": "measurement",
         },
     },
     "pb": {
         "metadata": {
             "icon": "mdi:chemical-weapon",
             "name": "Lead Concentration",
+            "state_class": "measurement",
         },
     },
     "pm10_0": {
@@ -664,6 +724,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "pm10",
             "icon": "mdi:air-filter",
             "name": "PM10 Concentration",
+            "state_class": "measurement",
         },
     },
     "pm1_0": {
@@ -671,6 +732,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "pm1",
             "icon": "mdi:air-filter",
             "name": "PM1.0 Concentration",
+            "state_class": "measurement",
         },
     },
     "pm2_5": {
@@ -678,12 +740,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "pm25",
             "icon": "mdi:air-filter",
             "name": "PM2.5 Concentration",
+            "state_class": "measurement",
         },
     },
     "pop": {
         "metadata": {
             "icon": "mdi:cloud-percent",
             "name": "Probability of Precipitation",
+            "state_class": "measurement",
         },
     },
     "pressure": {
@@ -691,12 +755,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "atmospheric_pressure",
             "icon": "mdi:gauge",
             "name": "Atmospheric Pressure",
+            "state_class": "measurement",
         },
     },
     "pressureRate": {
         "metadata": {
             "icon": "mdi:gauge",
             "name": "Pressure Rate",
+            "state_class": "measurement",
         },
     },
     "radiation": {
@@ -704,6 +770,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "irradiance",
             "icon": "mdi:radioactive",
             "name": "Solar Radiation",
+            "state_class": "measurement",
         },
     },
     "rain": {
@@ -718,6 +785,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation",
             "icon": "mdi:cup-water",
             "name": "24-Hour Rainfall",
+            "state_class": "measurement",
         },
     },
     "rainDur": {
@@ -732,6 +800,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation_intensity",
             "icon": "mdi:weather-pouring",
             "name": "Rain Rate",
+            "state_class": "measurement",
         },
     },
     "referenceVoltage": {
@@ -739,6 +808,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "voltage",
             "icon": "mdi:sine-wave",
             "name": "Reference Voltage",
+            "state_class": "measurement",
         },
     },
     "rms": {
@@ -746,12 +816,14 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "Root Mean Square Wind Speed",
+            "state_class": "measurement",
         },
     },
     "rxCheckPercent": {
         "metadata": {
             "icon": "mdi:radio-tower",
             "name": "Receive Check Percentage",
+            "state_class": "measurement",
         },
     },
     "soilLeafAlarm": {
@@ -776,6 +848,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "distance",
             "icon": "mdi:snowflake",
             "name": "Snow Depth",
+            "state_class": "measurement",
         },
     },
     "snowMoisture": {
@@ -783,6 +856,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "moisture",
             "icon": "mdi:snowflake-melt",
             "name": "Snow Moisture Content",
+            "state_class": "measurement",
         },
     },
     "snowRate": {
@@ -790,6 +864,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation_intensity",
             "icon": "mdi:snowflake",
             "name": "Snow Rate",
+            "state_class": "measurement",
         },
     },
     "so2": {
@@ -797,6 +872,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "sulphur_dioxide",
             "icon": "mdi:chemical-weapon",
             "name": "Sulfur Dioxide Concentration",
+            "state_class": "measurement",
         },
     },
     "soilMoist": {
@@ -804,6 +880,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "moisture",
             "icon": "mdi:water-percent",
             "name": "Soil Moisture",
+            "state_class": "measurement",
         },
     },
     "soilTemp": {
@@ -811,6 +888,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer",
             "name": "Soil Temperature",
+            "state_class": "measurement",
         },
     },
     "stormRain": {
@@ -818,6 +896,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation",
             "icon": "mdi:cup-water",
             "name": "Storm Rainfall",
+            "state_class": "total_increasing",
         },
     },
     "stormStart": {  # is sent in localtime
@@ -865,6 +944,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "voltage",
             "icon": "mdi:sine-wave",
             "name": "Supply Voltage",
+            "state_class": "measurement",
         },
     },
     "totalRain": {
@@ -872,6 +952,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation",
             "icon": "mdi:cup-water",
             "name": "Total Rainfall",
+            "state_class": "total_increasing",
         },
     },
     "usUnits": {
@@ -888,6 +969,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "Vector Average Wind Speed",
+            "state_class": "measurement",
         },
     },
     "vecdir": {
@@ -901,6 +983,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "Wind Speed",
+            "state_class": "measurement",
         },
     },
     "windDir": {
@@ -920,6 +1003,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "Wind Gust Speed",
+            "state_class": "measurement",
         },
     },
     "windGustDir": {
@@ -933,6 +1017,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "Wind Speed",
+            "state_class": "measurement",
         },
     },
     "windSpeed10": {
@@ -940,6 +1025,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "10-Minute Wind Speed",
+            "state_class": "measurement",
         },
     },
     "windchill": {
@@ -947,6 +1033,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "temperature",
             "icon": "mdi:thermometer",
             "name": "Wind Chill Temperature",
+            "state_class": "measurement",
         },
     },
     "windgustvec": {
@@ -954,6 +1041,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "Wind Gust Vector Speed",
+            "state_class": "measurement",
         },
     },
     "windburn": {
@@ -961,6 +1049,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "distance",
             "icon": "mdi:windsock",
             "name": "Wind Run Distance",
+            "state_class": "total_increasing",
         },
     },
     "windvec": {
@@ -968,6 +1057,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "wind_speed",
             "icon": "mdi:windsock",
             "name": "Wind Vector Speed",
+            "state_class": "measurement",
         },
     },
     "yearET": {
@@ -975,6 +1065,7 @@ KEY_CONFIG: dict[str, Any] = {
             "enabled_by_default": False,
             "icon": "mdi:waves-arrow-up",
             "name": "Year Evapotranspiration",
+            "state_class": "total_increasing",
         },
     },
     "yearRain": {
@@ -982,6 +1073,7 @@ KEY_CONFIG: dict[str, Any] = {
             "device_class": "precipitation",
             "icon": "mdi:cup-water",
             "name": "Yearly Rainfall",
+            "state_class": "total_increasing",
         },
     },
 }

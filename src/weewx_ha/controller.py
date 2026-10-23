@@ -74,6 +74,7 @@ class Controller(StdService):
             self.config.node_id,
             self.config.station,
             self.config.unit_system,
+            retain=self.config.retain_discovery,
         )
 
         self.state_publisher = StatePublisher(
@@ -81,6 +82,7 @@ class Controller(StdService):
             self.config_publisher,
             self.config.state_topic_prefix,
             self.config.unit_system,
+            retain=self.config.retain_state,
         )
 
         # Register the callbacks for loop packets
