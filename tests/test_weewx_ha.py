@@ -158,3 +158,11 @@ def test_key_config_not_mutated_by_processing():
     publisher = make_config_publisher()
     publisher.process_packet(dict(TEST_PACKET))
     assert "unit_of_measurement" not in KEY_CONFIG["outTemp"]["metadata"]
+
+
+@pytest.mark.parametrize("key", ["dateTime", "stormStart", "sunrise", "sunset"])
+def test_timestamp_conversion_is_utc(key):
+    """Verify timestamp keys convert Unix epochs directly to UTC ISO 8601."""
+    epoch = 1700000000  # 2023-11-14T22:13:20+00:00
+    convert = KEY_CONFIG[key]["convert_lambda"]
+    assert convert(epoch, None) == "2023-11-14T22:13:20+00:00"

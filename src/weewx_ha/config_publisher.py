@@ -4,7 +4,6 @@
 import json
 import logging
 from typing import Any
-from zoneinfo import ZoneInfo
 
 # Third-Party Libraries
 import paho.mqtt.client as mqtt
@@ -89,8 +88,6 @@ class ConfigPublisher:
                 "manufacturer": station_info.manufacturer,
             }
         }
-
-        self.time_zone: ZoneInfo = station_info.time_zone
 
         # Dictionary to hold measurement configuration and metadata
         self.seen_measurements: dict[str, dict[str, Any]] = {}

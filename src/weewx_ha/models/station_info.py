@@ -22,7 +22,9 @@ class StationInfo(BaseModel):
     )
     time_zone: ZoneInfo = Field(
         default_factory=lambda: ZoneInfo("UTC"),
-        description="Time zone of the weather station.",
+        description="Deprecated and unused. WeeWX timestamps are Unix epochs, "
+        "which are converted to UTC without needing a time zone. Accepted so "
+        "that existing configurations continue to validate.",
     )
 
     @field_validator("time_zone", mode="before")
