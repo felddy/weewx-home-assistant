@@ -59,12 +59,6 @@
           "type": "ci"
         }
       ],
-      "extra-files": [
-        {
-          "path": "src/weewx_ha/_version.py",
-          "type": "generic"
-        }
-      ],
       "release-type": "python"
     }
   }
