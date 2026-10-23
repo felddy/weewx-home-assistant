@@ -3,6 +3,7 @@
 
 # Standard Python Libraries
 import json
+import logging
 import os
 from unittest.mock import MagicMock
 
@@ -166,3 +167,15 @@ def test_timestamp_conversion_is_utc(key):
     epoch = 1700000000  # 2023-11-14T22:13:20+00:00
     convert = KEY_CONFIG[key]["convert_lambda"]
     assert convert(epoch, None) == "2023-11-14T22:13:20+00:00"
+
+
+def test_time_zone_deprecation_warning(caplog):
+    """Verify a warning is logged only when the deprecated time_zone is set."""
+    base = {"name": "Test", "model": "Model", "manufacturer": "Maker"}
+    with caplog.at_level(logging.WARNING):
+        StationInfo(**base)
+    assert "deprecated" not in caplog.text
+    with caplog.at_level(logging.WARNING):
+        StationInfo(**base, time_zone="America/New_York")
+    assert "time_zone" in caplog.text
+    assert "deprecated" in caplog.text

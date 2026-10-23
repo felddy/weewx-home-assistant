@@ -29,7 +29,16 @@ class StationInfo(BaseModel):
 
     @field_validator("time_zone", mode="before")
     def validate_time_zone(cls, value):
-        """Validate the time_zone field to ensure it's a valid ZoneInfo object."""
+        """Validate the time_zone field and warn that it is deprecated.
+
+        This validator only runs when a value is supplied in the
+        configuration, so the warning is not emitted for the default.
+        """
+        logger.warning(
+            "The station 'time_zone' option is deprecated and has no effect; "
+            "timestamps are converted directly from Unix epoch to UTC. "
+            "Please remove it from your configuration."
+        )
         if isinstance(value, ZoneInfo):
             return value
         try:
