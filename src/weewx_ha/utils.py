@@ -136,6 +136,10 @@ def get_key_config(weewx_key: str) -> dict[str, Any]:
 
 UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
     "cm": {"unit_of_measurement": "cm", "value_template": "{{ value | round(2) }}"},
+    "cm_per_hour": {
+        "unit_of_measurement": "cm/h",
+        "value_template": "{{ value | round(2) }}",
+    },
     "degree_C": {
         "unit_of_measurement": "°C",
         "value_template": "{{ value | round(1) }}",
@@ -160,7 +164,15 @@ UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
     "hPa": {"unit_of_measurement": "hPa", "value_template": "{{ value | round(2) }}"},
     "hour": {"unit_of_measurement": "h", "value_template": "{{ value | round(2) }}"},
     "inHg": {"unit_of_measurement": "inHg", "value_template": "{{ value | round(2) }}"},
+    "inHg_per_hour": {
+        "unit_of_measurement": "inHg/h",
+        "value_template": "{{ value | round(3) }}",
+    },
     "inch": {"unit_of_measurement": "in", "value_template": "{{ value | round(2) }}"},
+    "inch_per_hour": {
+        "unit_of_measurement": "in/h",
+        "value_template": "{{ value | round(2) }}",
+    },
     "kPa": {"unit_of_measurement": "kPa", "value_template": "{{ value | round(2) }}"},
     "kilowatt": {
         "unit_of_measurement": "kW",
@@ -178,6 +190,10 @@ UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
     "liter": {"unit_of_measurement": "L", "value_template": "{{ value | round(2) }}"},
     "lux": {"unit_of_measurement": "lx", "value_template": "{{ value | round(0) }}"},
     "mbar": {"unit_of_measurement": "mbar", "value_template": "{{ value | round(2) }}"},
+    "mbar_per_hour": {
+        "unit_of_measurement": "mbar/h",
+        "value_template": "{{ value | round(2) }}",
+    },
     "meter": {"unit_of_measurement": "m", "value_template": "{{ value | round(2) }}"},
     "meter_per_second": {
         "unit_of_measurement": "m/s",

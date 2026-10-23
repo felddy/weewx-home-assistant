@@ -95,6 +95,7 @@ class Controller(StdService):
         client.logger = logger
         # Set the callbacks
         client.on_connect = self.on_mqtt_connect
+        client.on_connect_fail = self.on_mqtt_connect_fail
         client.on_message = self.on_mqtt_message
         client.on_subscribe = self.on_mqtt_subscribe
         client.on_unsubscribe = self.on_mqtt_unsubscribe
