@@ -202,7 +202,7 @@ class Controller(StdService):
         logger.debug("Received WeeWX loop packet")
         if self.mqtt_client.is_connected():
             preprocessor_future = self.executor.submit(
-                self.packet_preprocessor.process_packet, event.packet
+                self.packet_preprocessor.process_packet, event.packet.copy()
             )
             preprocessor_future.add_done_callback(self.preprocessor_complete)
         else:
