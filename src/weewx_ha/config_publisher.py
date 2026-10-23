@@ -138,7 +138,7 @@ class ConfigPublisher:
         logger.info(
             f"Publishing {len(self.seen_measurements)} discovery configurations"
         )
-        for sensor_name, config in self.seen_measurements.items():
+        for sensor_name, config in list(self.seen_measurements.items()):
             # Construct discovery topic
             integration = config.get("integration", "sensor")
             discovery_topic = f"{self.discovery_topic_prefix}/{integration}/{self.node_id}/{sensor_name}/config"
