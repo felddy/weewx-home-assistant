@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# render-docs-update: regenerate every rendered document from its template.
+#
+# Renders the README and any other '*.j2' template using the version read
+# from pyproject.toml (the single source of truth).  Equivalent to
+# `make docs` without requiring make; used by the render-release-docs
+# workflow so the rendered documents are committed alongside the release
+# version bump.
+
+set -eu
+
+exec python3 tools/render_docs.py --all

@@ -163,6 +163,19 @@ repos:
     hooks:
       - id: pyupgrade
 
+  # Render-consistency hooks
+  - repo: local
+    hooks:
+      - id: render-docs-check
+        name: render-docs-check
+        language: python
+        additional_dependencies:
+          - jinja2
+          - semver
+        entry: python tools/render_docs.py --check
+        files: ^(.*\.j2|README\.md|pyproject\.toml)$
+        pass_filenames: false
+
   # Terraform hooks
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.96.2
