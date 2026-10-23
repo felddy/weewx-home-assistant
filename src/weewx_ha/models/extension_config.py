@@ -28,6 +28,14 @@ class ExtensionConfig(BaseModel):
         min_length=1,
         pattern=r"^[a-zA-Z0-9_-]+$",
     )
+    retain_discovery: bool = Field(
+        default=False,
+        description="Publish MQTT discovery configurations with the retain flag",
+    )
+    retain_state: bool = Field(
+        default=False,
+        description="Publish MQTT state updates with the retain flag",
+    )
     state_topic_prefix: str = Field(
         default="weather", description="Prefix for the state topic"
     )

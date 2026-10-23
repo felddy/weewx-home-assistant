@@ -30,6 +30,8 @@ class ConfigPublisher:
         The MQTT client used for publishing messages.
     node_id : str
         The unique identifier for the node.
+    retain : bool
+        Whether discovery configurations are published with the retain flag.
     state_topic_prefix : str
         The prefix for MQTT state topics.
     unit_system : UnitSystem
@@ -47,6 +49,7 @@ class ConfigPublisher:
         node_id: str,
         station_info: StationInfo,
         unit_system: UnitSystem = UnitSystem.METRICWX,
+        retain: bool = False,
     ):
         """
         Initialize the ConfigPublisher.
@@ -67,8 +70,11 @@ class ConfigPublisher:
             The weather station information.
         unit_system : UnitSystem, optional
             The unit system to use for measurements (default is UnitSystem.METRICWX).
+        retain : bool, optional
+            Whether to publish discovery configurations with the retain flag (default is False).
         """
         self.availability_topic: str = availability_topic
+        self.retain: bool = retain
         self.discovery_topic_prefix: str = discovery_topic_prefix
         self.mqtt_client: mqtt.Client = mqtt_client
         self.node_id: str = node_id
@@ -160,4 +166,6 @@ class ConfigPublisher:
                 f"Publishing discovery configuration: {discovery_topic}: {payload}"
             )
             # Publish the discovery configuration
-            self.mqtt_client.publish(discovery_topic, json.dumps(payload))
+            self.mqtt_client.publish(
+                discovery_topic, json.dumps(payload), retain=self.retain
+            )

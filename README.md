@@ -84,6 +84,8 @@ Add a configuration section to the root of the `weewx.conf` file:
 [HomeAssistant]
     discovery_topic_prefix = <default: homeassistant>
     node_id = <required>
+    retain_discovery = <default: False>
+    retain_state = <default: False>
     state_topic_prefix = <default: weather>
     unit_system = <default: METRICWX>
     [[mqtt]]
@@ -107,6 +109,14 @@ Add a configuration section to the root of the `weewx.conf` file:
         name = <required>
         timezone = <default: UTC>
 ```
+
+> [!NOTE]
+> By default, only the availability topic is retained by the MQTT broker.
+> Discovery configurations are automatically republished whenever Home
+> Assistant announces its birth message, so retention is not required for
+> normal operation. Set `retain_discovery` or `retain_state` to `True` only
+> if you understand the trade-off: retained messages persist on the broker
+> until explicitly cleared, and can outlive renamed or removed entities.
 
 > [!NOTE]
 > Information about `TLS` options can be found in the Python documentation:
