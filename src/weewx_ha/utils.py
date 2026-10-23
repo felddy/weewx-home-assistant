@@ -915,33 +915,30 @@ KEY_CONFIG: dict[str, Any] = {
             "state_class": "total_increasing",
         },
     },
-    "stormStart": {  # is sent in localtime
-        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x)
-        .replace(tzinfo=cp.time_zone)
-        .astimezone(tz=timezone.utc)
-        .isoformat(),
+    "stormStart": {
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(
+            x, tz=timezone.utc
+        ).isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:clock-start",
             "name": "Storm Start Time",
         },
     },
-    "sunrise": {  # is sent in localtime
-        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x)
-        .replace(tzinfo=cp.time_zone)
-        .astimezone(tz=timezone.utc)
-        .isoformat(),
+    "sunrise": {
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(
+            x, tz=timezone.utc
+        ).isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:weather-sunset-up",
             "name": "Sunrise",
         },
     },
-    "sunset": {  # is sent in localtime
-        "convert_lambda": lambda x, cp: datetime.fromtimestamp(x)
-        .replace(tzinfo=cp.time_zone)
-        .astimezone(tz=timezone.utc)
-        .isoformat(),
+    "sunset": {
+        "convert_lambda": lambda x, cp: datetime.fromtimestamp(
+            x, tz=timezone.utc
+        ).isoformat(),
         "metadata": {
             "device_class": "timestamp",
             "icon": "mdi:weather-sunset-down",
