@@ -18,12 +18,12 @@ classifiers = [
 ]
 dependencies = ["paho-mqtt >= 2.0", "pydantic >= 2"]
 description = "WeeWX Home Assistant Python library"
-dynamic = ["version"]
 keywords = ["home-assistant", "mqtt", "weewx"]
 license = { file = "LICENSE" }
 name = "weewx-home-assistant"
 readme = "README.md"
 requires-python = ">=3.10"
+version = "1.0.0"
 
 [project.urls]
 homepage = "https://github.com/felddy/weewx-home-assistant"
@@ -39,6 +39,3 @@ test = [
     "pytest",
     "weewx == 5.5.2",
 ]
-
-[tool.setuptools.dynamic]
-version = { attr = "weewx_ha._version.__version__" }

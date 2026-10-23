@@ -1,0 +1,22 @@
+---
+name: Release Please
+
+# Maintains the release PR from conventional commits (version bump plus
+# changelog) and publishes the GitHub release when that PR merges.
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - develop
+
+permissions: {}
+
+jobs:
+  release-please:
+    name: Release Please
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: felddy/reusable-workflows/.github/workflows/release-please.yml@v5
+    secrets:
+      release-please-token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
