@@ -59,6 +59,12 @@
           "type": "ci"
         }
       ],
+      "extra-files": [
+        {
+          "path": "README.md",
+          "type": "generic"
+        }
+      ],
       "release-type": "python"
     }
   }
