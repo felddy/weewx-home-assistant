@@ -12,8 +12,15 @@ import weewx
 
 # Geekpad Libraries
 import weewx_ha
-from weewx_ha import ConfigPublisher, ExtensionConfig, StatePublisher, UnitSystem
+from weewx_ha import (
+    ConfigPublisher,
+    ExtensionConfig,
+    StatePublisher,
+    UnitSystem,
+    get_unit_metadata,
+)
 from weewx_ha.models import StationInfo
+from weewx_ha.utils import KEY_CONFIG
 
 # define sources of version strings
 RELEASE_TAG = os.getenv("RELEASE_TAG")
@@ -118,3 +125,36 @@ def test_extension_config_retain_defaults_and_coercion():
     config = ExtensionConfig(**base, retain_discovery="true", retain_state="false")
     assert config.retain_discovery is True
     assert config.retain_state is False
+
+
+@pytest.mark.parametrize(
+    "key,unit_system,expected",
+    [
+        ("rainRate", UnitSystem.US, "in/h"),
+        ("rainRate", UnitSystem.METRIC, "cm/h"),
+        ("rainRate", UnitSystem.METRICWX, "mm/h"),
+        ("barometerRate", UnitSystem.US, "inHg/h"),
+        ("barometerRate", UnitSystem.METRICWX, "mbar/h"),
+    ],
+)
+def test_rate_unit_metadata(key, unit_system, expected):
+    """Verify rate measurements resolve to known unit metadata in every unit system."""
+    metadata = get_unit_metadata(key, unit_system)
+    assert metadata["unit_of_measurement"] == expected
+    assert "value_template" in metadata
+
+
+def test_seen_measurements_fully_built():
+    """Verify configurations are complete as soon as they appear in seen_measurements."""
+    publisher = make_config_publisher()
+    publisher.process_packet(dict(TEST_PACKET))
+    for key, config in publisher.seen_measurements.items():
+        assert "metadata" in config, f"{key} missing metadata"
+        assert "name" in config["metadata"], f"{key} missing name"
+
+
+def test_key_config_not_mutated_by_processing():
+    """Verify processing packets does not leak unit metadata into KEY_CONFIG."""
+    publisher = make_config_publisher()
+    publisher.process_packet(dict(TEST_PACKET))
+    assert "unit_of_measurement" not in KEY_CONFIG["outTemp"]["metadata"]

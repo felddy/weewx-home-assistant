@@ -7,7 +7,7 @@ authors = [{ name = "Mark Feldhousen", email = "markf@geekpad.com" }]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.10",
@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
 ]
-dependencies = ["paho-mqtt", "pydantic", "setuptools"]
+dependencies = ["paho-mqtt >= 2.0", "pydantic >= 2"]
 description = "WeeWX Home Assistant Python library"
 dynamic = ["version"]
 keywords = ["home-assistant", "mqtt", "weewx"]
@@ -26,7 +26,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 
 [project.urls]
-homepage = "https://github.com/felddy"
+homepage = "https://github.com/felddy/weewx-home-assistant"
 issues = "https://github.com/felddy/weewx-home-assistant/issues"
 source = "https://github.com/felddy/weewx-home-assistant"
 

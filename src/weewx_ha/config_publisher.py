@@ -1,7 +1,6 @@
 """Processes loop packets and publish MQTT discovery configurations."""
 
 # Standard Python Libraries
-from collections import defaultdict
 import json
 import logging
 from typing import Any
@@ -94,7 +93,7 @@ class ConfigPublisher:
         self.time_zone: ZoneInfo = station_info.time_zone
 
         # Dictionary to hold measurement configuration and metadata
-        self.seen_measurements: dict[str, dict[str, Any]] = defaultdict(dict)
+        self.seen_measurements: dict[str, dict[str, Any]] = {}
 
     def process_packet(self, packet: dict) -> bool:
         """
@@ -119,11 +118,14 @@ class ConfigPublisher:
             if key not in self.seen_measurements:
                 logger.debug(f"Discovered new measurement: {key}")
                 found_new_measurements = True
-                self.seen_measurements[key] |= get_key_config(key)
+                config = dict(get_key_config(key))
                 # Unit metadata is underlaid with the metadata from the key
-                self.seen_measurements[key]["metadata"] = get_unit_metadata(
+                config["metadata"] = get_unit_metadata(
                     key, self.unit_system
-                ) | self.seen_measurements[key].get("metadata", {})
+                ) | config.get("metadata", {})
+                # Insert fully built so concurrent readers never see a
+                # partially populated configuration
+                self.seen_measurements[key] = config
         return found_new_measurements
 
     def publish_discovery(self) -> None:
