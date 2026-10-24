@@ -179,3 +179,48 @@ def test_time_zone_deprecation_warning(caplog):
         StationInfo(**base, time_zone="America/New_York")
     assert "time_zone" in caplog.text
     assert "deprecated" in caplog.text
+
+
+def test_windrun_key_config():
+    """Verify windrun (not windburn) resolves to the wind run metadata."""
+    config = weewx_ha.get_key_config("windrun")
+    assert config["metadata"]["name"] == "Wind Run Distance"
+    assert config["metadata"]["state_class"] == "total_increasing"
+    assert "windburn" not in KEY_CONFIG
+
+
+def test_rain_alarm_key_config():
+    """Verify rainAlarm has an explicit binary sensor configuration."""
+    config = weewx_ha.get_key_config("rainAlarm")
+    assert config["integration"] == "binary_sensor"
+    assert config["metadata"]["name"] == "Rain Alarm"
+
+
+def test_no_unit_warnings_for_unitless_keys(caplog):
+    """Verify unit-less measurements are processed without unit warnings."""
+    publisher = make_config_publisher()
+    packet = {
+        "usUnits": weewx.METRICWX,
+        "batteryStatusISS": 0,
+        "extraAlarm1": 0,
+        "forecastIcon": 8,
+        "forecastRule": 45,
+        "insideAlarm": 0,
+        "rainAlarm": 0,
+        "soilLeafAlarm4": 0,
+        "windrun": 12.3,
+    }
+    with caplog.at_level(logging.INFO):
+        publisher.process_packet(packet)
+    assert "No unit found" not in caplog.text
+    assert "Guessed metadata" not in caplog.text
+    # The unitless marker must not leak into published configurations
+    assert "unitless" not in publisher.seen_measurements["forecastIcon"]
+
+
+def test_unit_warning_remains_for_unknown_numeric_keys(caplog):
+    """Verify genuinely unmapped measurements still warn about missing units."""
+    publisher = make_config_publisher()
+    with caplog.at_level(logging.WARNING):
+        publisher.process_packet({"usUnits": weewx.METRICWX, "mysteryReading": 1.0})
+    assert "No unit found" in caplog.text
