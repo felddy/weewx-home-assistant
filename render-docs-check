@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# render-docs-check: verify every rendered document is in sync with its
+# template.
+#
+# Asks render_docs.py to re-render every '*.j2' template in the repository in
+# memory, comparing each against its committed output.  The version is read
+# from pyproject.toml (the single source of truth).  Exits 0 when everything
+# matches; otherwise prints a unified diff for each stale file and exits
+# non-zero.  Nothing is written.
+
+set -eu
+
+exec python3 tools/render_docs.py --check
