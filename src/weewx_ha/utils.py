@@ -331,6 +331,7 @@ KEY_CONFIG: dict[str, Any] = {
             "icon": "mdi:windsock",
             "name": "Beaufort Scale",
         },
+        "unitless": True,
     },
     "cloudbase": {
         "metadata": {
@@ -452,12 +453,14 @@ KEY_CONFIG: dict[str, Any] = {
             "icon": "mdi:image-frame",
             "name": "Forecast Icon",
         },
+        "unitless": True,
     },
     "forecastRule": {
         "metadata": {
             "icon": "mdi:format-list-numbered",
             "name": "Forecast Rule",
         },
+        "unitless": True,
     },
     "growdeg": {
         "metadata": {
@@ -804,6 +807,16 @@ KEY_CONFIG: dict[str, Any] = {
             "state_class": "measurement",
         },
     },
+    "rainAlarm": {
+        "integration": "binary_sensor",
+        "metadata": {
+            "enabled_by_default": False,
+            "icon": "mdi:alarm-light",
+            "name": "Rain Alarm",
+            "payload_off": 0,
+            "payload_on": 1,
+        },
+    },
     "rainDur": {
         "metadata": {
             "device_class": "duration",
@@ -1057,7 +1070,7 @@ KEY_CONFIG: dict[str, Any] = {
             "state_class": "measurement",
         },
     },
-    "windburn": {
+    "windrun": {
         "metadata": {
             "device_class": "distance",
             "icon": "mdi:windsock",
