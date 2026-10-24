@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/felddy/weewx-home-assistant/compare/v1.2.0...v1.2.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* register unit groups for unconverted Vantage observations ([e87edb6](https://github.com/felddy/weewx-home-assistant/commit/e87edb680f7e057bc6b98e45e669ee2e8a985d23))
+* register unit groups for unconverted Vantage observations ([ebdeb13](https://github.com/felddy/weewx-home-assistant/commit/ebdeb13198c3ae27faea7bf718080372e531a559))
+
 ## [1.2.0](https://github.com/felddy/weewx-home-assistant/compare/v1.1.0...v1.2.0) (2026-10-24)
 
 
