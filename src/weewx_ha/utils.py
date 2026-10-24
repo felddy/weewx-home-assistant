@@ -10,9 +10,30 @@ from typing import Any, Optional
 
 # Third-Party Libraries
 import weewx  # type: ignore
-from weewx.units import getStandardUnitType  # type: ignore
+from weewx.units import getStandardUnitType, obs_group_dict  # type: ignore
 
 logger = logging.getLogger(__name__)
+
+# Observation types the Vantage driver emits that WeeWX does not register in
+# obs_group_dict. Without a unit group these skip unit conversion entirely
+# and cannot be resolved to a display unit.
+MISSING_OBS_GROUPS: dict[str, str] = {
+    "dayET": "group_rain",
+    "monthET": "group_rain",
+    "sunrise": "group_time",
+    "sunset": "group_time",
+    "yearET": "group_rain",
+}
+
+
+def register_obs_groups() -> None:
+    """Register observation types missing from WeeWX's unit group map.
+
+    Uses setdefault so a registration made by WeeWX itself or another
+    extension is never overridden.
+    """
+    for key, group in MISSING_OBS_GROUPS.items():
+        obs_group_dict.setdefault(key, group)
 
 
 class UnitSystem(str, Enum):
@@ -57,25 +78,13 @@ def get_unit_metadata(measurement_name: str, unit_system: UnitSystem) -> dict[st
         int(unit_system), measurement_name
     )
 
-    if target_unit is None:
-        # take a guess at the unit based on the measurement name
-        if measurement_name == "usUnits":
-            pass  # Nothing to do for usUnits, this is a special case
-        elif measurement_name.endswith("ET"):
-            # Map other evapotranspiration measurements (dayET, monthET, yearET) to the same unit as ET
-            (target_unit, _) = getStandardUnitType(int(unit_system), "ET")
-        elif measurement_name in {"sunrise", "sunset", "stormStart"}:
-            (target_unit, _) = getStandardUnitType(int(unit_system), "dateTime")
-        else:
-            logger.warning(
-                "No unit found for measurement '%s' in unit system %s",
-                measurement_name,
-                unit_system,
-            )
-        if target_unit:
-            logger.info(
-                "Guessed unit '%s' for measurement %s", target_unit, measurement_name
-            )
+    if target_unit is None and measurement_name != "usUnits":
+        # usUnits is an enum, not a measurement with a unit
+        logger.warning(
+            "No unit found for measurement '%s' in unit system %s",
+            measurement_name,
+            unit_system,
+        )
 
     return UNIT_METADATA.get(
         target_unit,
