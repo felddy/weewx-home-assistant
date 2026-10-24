@@ -116,10 +116,15 @@ class ConfigPublisher:
                 logger.debug(f"Discovered new measurement: {key}")
                 found_new_measurements = True
                 config = dict(get_key_config(key))
-                # Unit metadata is underlaid with the metadata from the key
-                config["metadata"] = get_unit_metadata(
-                    key, self.unit_system
-                ) | config.get("metadata", {})
+                # Binary sensors and explicitly unit-less keys carry no unit
+                # metadata, so skip the lookup (and its missing-unit warning)
+                if config.get("integration", "sensor") == "sensor" and not config.pop(
+                    "unitless", False
+                ):
+                    # Unit metadata is underlaid with the metadata from the key
+                    config["metadata"] = get_unit_metadata(
+                        key, self.unit_system
+                    ) | config.get("metadata", {})
                 # Insert fully built so concurrent readers never see a
                 # partially populated configuration
                 self.seen_measurements[key] = config
