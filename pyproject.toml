@@ -25,7 +25,7 @@ license = { file = "LICENSE" }
 name = "weewx-home-assistant"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "1.2.0"
+version = "1.2.1"
 
 [project.urls]
 homepage = "https://github.com/felddy/weewx-home-assistant"
