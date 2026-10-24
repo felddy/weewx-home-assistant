@@ -1,0 +1,131 @@
+{
+  "bypass_actors": [],
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "enforcement": "active",
+  "name": "Development branch protections",
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "parameters": {
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ],
+        "dismiss_stale_reviews_on_push": false,
+        "require_code_owner_review": true,
+        "require_last_push_approval": false,
+        "required_approving_review_count": 0,
+        "required_review_thread_resolution": true,
+        "required_reviewers": []
+      },
+      "type": "pull_request"
+    },
+    {
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "CodeQL",
+            "integration_id": 57789
+          },
+          {
+            "context": "build wheel - py3.10",
+            "integration_id": 15368
+          },
+          {
+            "context": "build wheel - py3.11",
+            "integration_id": 15368
+          },
+          {
+            "context": "build wheel - py3.12",
+            "integration_id": 15368
+          },
+          {
+            "context": "build wheel - py3.13",
+            "integration_id": 15368
+          },
+          {
+            "context": "build wheel - py3.14",
+            "integration_id": 15368
+          },
+          {
+            "context": "build wheel - py3.15",
+            "integration_id": 15368
+          },
+          {
+            "context": "coveralls-finish",
+            "integration_id": 15368
+          },
+          {
+            "context": "lint",
+            "integration_id": 15368
+          },
+          {
+            "context": "test built wheel - py3.10",
+            "integration_id": 15368
+          },
+          {
+            "context": "test built wheel - py3.11",
+            "integration_id": 15368
+          },
+          {
+            "context": "test built wheel - py3.12",
+            "integration_id": 15368
+          },
+          {
+            "context": "test built wheel - py3.13",
+            "integration_id": 15368
+          },
+          {
+            "context": "test built wheel - py3.14",
+            "integration_id": 15368
+          },
+          {
+            "context": "test built wheel - py3.15",
+            "integration_id": 15368
+          },
+          {
+            "context": "test source - py3.10",
+            "integration_id": 15368
+          },
+          {
+            "context": "test source - py3.11",
+            "integration_id": 15368
+          },
+          {
+            "context": "test source - py3.12",
+            "integration_id": 15368
+          },
+          {
+            "context": "test source - py3.13",
+            "integration_id": 15368
+          },
+          {
+            "context": "test source - py3.14",
+            "integration_id": 15368
+          },
+          {
+            "context": "test source - py3.15",
+            "integration_id": 15368
+          }
+        ],
+        "strict_required_status_checks_policy": true
+      },
+      "type": "required_status_checks"
+    }
+  ],
+  "target": "branch"
+}
