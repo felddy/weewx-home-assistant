@@ -18,6 +18,7 @@ from weewx.engine import StdEngine, StdService  # type: ignore
 
 from . import ConfigPublisher, PacketPreprocessor, StatePublisher
 from .models import ExtensionConfig, MQTTConfig
+from .utils import register_obs_groups
 
 logger = logging.getLogger(__name__)
 
@@ -55,6 +56,10 @@ class Controller(StdService):
         logger.debug(
             f"Loaded extension configuration:\n{self.config.model_dump_json(indent=4)}"
         )
+
+        # Register observation types missing from WeeWX's unit group map so
+        # unit conversion covers them before the first packet arrives
+        register_obs_groups()
 
         self.availability_topic: str = f"{self.config.state_topic_prefix}/status"
         self.mqtt_client: mqtt.Client = self.init_mqtt_client(self.config.mqtt)

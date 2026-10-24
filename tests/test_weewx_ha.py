@@ -10,6 +10,7 @@ from unittest.mock import MagicMock
 # Third-Party Libraries
 import pytest
 import weewx
+from weewx.units import obs_group_dict, to_std_system
 
 # Geekpad Libraries
 import weewx_ha
@@ -21,7 +22,7 @@ from weewx_ha import (
     get_unit_metadata,
 )
 from weewx_ha.models import StationInfo
-from weewx_ha.utils import KEY_CONFIG
+from weewx_ha.utils import KEY_CONFIG, MISSING_OBS_GROUPS, register_obs_groups
 
 # define sources of version strings
 RELEASE_TAG = os.getenv("RELEASE_TAG")
@@ -224,3 +225,26 @@ def test_unit_warning_remains_for_unknown_numeric_keys(caplog):
     with caplog.at_level(logging.WARNING):
         publisher.process_packet({"usUnits": weewx.METRICWX, "mysteryReading": 1.0})
     assert "No unit found" in caplog.text
+
+
+def test_register_obs_groups_enables_conversion():
+    """Verify registration makes WeeWX convert formerly groupless keys."""
+    register_obs_groups()
+    for key, group in MISSING_OBS_GROUPS.items():
+        assert obs_group_dict[key] == group
+    # A US-unit packet's dayET must arrive converted (inches -> mm)
+    packet = to_std_system({"usUnits": weewx.US, "dayET": 0.1}, weewx.METRICWX)
+    assert packet["dayET"] == pytest.approx(2.54)
+
+
+def test_registered_keys_resolve_without_guessing(caplog):
+    """Verify ET accumulations and sun events resolve units without warnings."""
+    register_obs_groups()
+    publisher = make_config_publisher()
+    packet = {"usUnits": weewx.US, "dayET": 0.1, "sunrise": 1700000000}
+    with caplog.at_level(logging.INFO):
+        publisher.process_packet(packet)
+    assert "Guessed unit" not in caplog.text
+    assert "No unit found" not in caplog.text
+    metadata = publisher.seen_measurements["dayET"]["metadata"]
+    assert metadata["unit_of_measurement"] == "mm"
