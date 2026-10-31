@@ -2,7 +2,7 @@
 
 # Standard Python Libraries
 import logging
-from typing import Any, Dict
+from typing import Any
 
 # Third-Party Libraries
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
@@ -46,7 +46,7 @@ class ExtensionConfig(BaseModel):
 
     @classmethod
     def from_config_dict(
-        cls, config_dict: Dict[str, Any], key: str
+        cls, config_dict: dict[str, Any], key: str
     ) -> "ExtensionConfig":
         """Create an instance from a configuration dictionary."""
         extension_config = config_dict.get(key, {})

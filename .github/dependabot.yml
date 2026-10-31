@@ -24,16 +24,22 @@ updates:
       # - dependency-name: actions/upload-artifact
       # - dependency-name: github/codeql-action
     package-ecosystem: github-actions
+    cooldown:
+      default-days: 7
     schedule:
       interval: weekly
 
   - directory: /
     package-ecosystem: pip
+    cooldown:
+      default-days: 7
     schedule:
       interval: weekly
 
   - directory: /
     package-ecosystem: terraform
+    cooldown:
+      default-days: 7
     schedule:
       interval: weekly
 version: 2

@@ -3,7 +3,7 @@
 # Standard Python Libraries
 import logging
 import ssl
-from typing import Any, Optional
+from typing import Any
 
 # Third-Party Libraries
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, Secret, model_validator
@@ -16,22 +16,22 @@ class TLSConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    cadata: Optional[str] = Field(
+    cadata: str | None = Field(
         None, description="String containing trusted CA certificates."
     )
-    cafile: Optional[str] = Field(
+    cafile: str | None = Field(
         None, description="Path to a file containing trusted CA certificates."
     )
-    capath: Optional[str] = Field(
+    capath: str | None = Field(
         None, description="Path to a directory containing trusted CA certificates."
     )
-    certfile: Optional[str] = Field(
+    certfile: str | None = Field(
         None, description="Path to the client certificate file."
     )
-    keyfile: Optional[str] = Field(
+    keyfile: str | None = Field(
         None, description="Path to the client private key file."
     )
-    password: Optional[Secret[str]] = Field(
+    password: Secret[str] | None = Field(
         None, description="Password for the client private key file."
     )
 

@@ -1,0 +1,28 @@
+---
+name: Scorecards supply-chain security
+
+# Trigger-only stub: the dual-trigger scorecards workflow in
+# felddy/reusable-workflows does the work.
+
+on:
+  # Only the default branch is supported.
+  branch_protection_rule:
+  schedule:
+    - cron: '43 4 * * 4'
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  analysis:
+    uses: felddy/reusable-workflows/.github/workflows/scorecards.yml@v5
+    permissions:
+      # Needed to upload the results to code-scanning dashboard.
+      security-events: write
+      # Used to receive a badge.
+      id-token: write
+      contents: read
+      actions: read

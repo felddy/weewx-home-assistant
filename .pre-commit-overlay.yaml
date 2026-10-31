@@ -1,0 +1,28 @@
+# Repo-specific layer over the central pre-commit base in
+# felddy/reusable-workflows lint-config/pre-commit-base.yaml. The
+# config-sync workflow (or tools/merge_precommit.py from a
+# reusable-workflows checkout) merges the pair into the generated
+# .pre-commit-config.yaml.
+---
+repos:
+  - repo: https://github.com/PyCQA/flake8
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-docstrings
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - types-setuptools
+  - repo: local
+    hooks:
+      - id: render-docs-check
+        name: render-docs-check
+        language: python
+        additional_dependencies:
+          - jinja2
+          - semver
+        entry: python tools/render_docs.py --check
+        files: ^(.*\.j2|README\.md|pyproject\.toml)$
+        pass_filenames: false
