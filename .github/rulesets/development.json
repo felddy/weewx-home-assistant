@@ -38,10 +38,6 @@
         "do_not_enforce_on_create": false,
         "required_status_checks": [
           {
-            "context": "CodeQL",
-            "integration_id": 57789
-          },
-          {
             "context": "build wheel - py3.10",
             "integration_id": 15368
           },
@@ -66,11 +62,19 @@
             "integration_id": 15368
           },
           {
+            "context": "CodeQL",
+            "integration_id": 57789
+          },
+          {
             "context": "coveralls-finish",
             "integration_id": 15368
           },
           {
-            "context": "lint",
+            "context": "dependency-review / dependency-review",
+            "integration_id": 15368
+          },
+          {
+            "context": "Lint / Lint sources",
             "integration_id": 15368
           },
           {

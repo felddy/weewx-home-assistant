@@ -15,6 +15,10 @@ rules:
   line-length:
     # This rule implies the allow-non-breakable-words rule
     allow-non-breakable-inline-mappings: true
+    # When pinning GitHub Actions with full SHAs and comments we run into
+    # the inability to wrap yaml in any sane way.
+    ignore: |
+      /.github/workflows/*.yml
     # Allows a 10% overage from the default limit of 80
     max: 88
 

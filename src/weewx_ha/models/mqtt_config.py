@@ -1,7 +1,6 @@
 """MQTT broker configuration model with optional TLS support."""
 
 # Standard Python Libraries
-from typing import Optional
 
 # Third-Party Libraries
 from pydantic import BaseModel, ConfigDict, Field, Secret, field_validator
@@ -14,7 +13,7 @@ class MQTTConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    client_id: Optional[str] = None
+    client_id: str | None = None
     hostname: str = Field(..., min_length=1, description="MQTT broker hostname")
     keep_alive: int = Field(
         default=60, ge=0, description="Keep-alive interval in seconds"

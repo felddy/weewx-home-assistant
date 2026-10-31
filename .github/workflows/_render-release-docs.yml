@@ -1,16 +1,11 @@
 ---
 name: Render Release Docs
 
-# release-please bumps the version in pyproject.toml on its release branch
-# but does not know the committed docs are rendered from that version, so
-# every release-authored bump leaves the rendered documents stale against
-# their templates and fails the render-docs pre-commit check. This workflow
-# re-renders the docs on the release branch and pushes the result. The push
-# must use the same PAT as release-please so the pull request's checks
-# re-run (GITHUB_TOKEN pushes do not trigger workflows). Re-triggering on
-# its own push is harmless: a clean tree exits early.
+# Trigger-only stub: the reusable render-docs workflow in
+# felddy/reusable-workflows re-renders the docs on the release branch
+# and pushes with the release-please PAT so the PR's checks re-run.
 
-on:  # yamllint disable-line rule:truthy
+on:
   push:
     branches:
       - release-please--branches--develop
@@ -19,46 +14,9 @@ permissions: {}
 
 jobs:
   render:
-    name: Render docs for release version
-    runs-on: ubuntu-latest
-
+    uses: felddy/reusable-workflows/.github/workflows/render-docs.yml@v5
+    with:
+      render-command: sh render-docs-update
     permissions:
       contents: write
-
-    steps:
-      - name: Harden Runner
-        # step-security/harden-runner tag=v2.22.1
-        uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25
-        with:
-          disable-sudo: true
-          egress-policy: block
-          allowed-endpoints: >
-            api.github.com:443
-            files.pythonhosted.org:443
-            github.com:443
-            pypi.org:443
-
-      - name: Checkout release branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
-
-      - name: Install rendering dependencies
-        run: python3 -m pip install --upgrade jinja2 semver
-
-      - name: Render documents from templates
-        run: sh render-docs-update
-
-      - name: Commit and push rendered documents
-        run: |
-          if git diff --quiet; then
-            echo "Rendered documents already match the templates"
-            exit 0
-          fi
-          VERSION=$(sed -n 's/^version = "\(.*\)"$/\1/p' pyproject.toml)
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "chore: render docs for ${VERSION}"
-          git push
+    secrets: inherit

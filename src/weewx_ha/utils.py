@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from enum import Enum
 import logging
 import re
-from typing import Any, Optional
+from typing import Any
 
 # Third-Party Libraries
 import weewx  # type: ignore
@@ -74,9 +74,7 @@ class UnitSystem(str, Enum):
 
 def get_unit_metadata(measurement_name: str, unit_system: UnitSystem) -> dict[str, Any]:
     """Generate metadata for a measurement unit based on the unit system."""
-    (target_unit, target_group) = getStandardUnitType(
-        int(unit_system), measurement_name
-    )
+    target_unit, target_group = getStandardUnitType(int(unit_system), measurement_name)
 
     if target_unit is None and measurement_name != "usUnits":
         # usUnits is an enum, not a measurement with a unit
@@ -143,7 +141,7 @@ def get_key_config(weewx_key: str) -> dict[str, Any]:
     return guess
 
 
-UNIT_METADATA: dict[str, dict[str, Optional[str]]] = {
+UNIT_METADATA: dict[str, dict[str, str | None]] = {
     "cm": {"unit_of_measurement": "cm", "value_template": "{{ value | round(2) }}"},
     "cm_per_hour": {
         "unit_of_measurement": "cm/h",
