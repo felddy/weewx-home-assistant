@@ -40,117 +40,32 @@ commit message.  This speeds up your development cycle considerably.
 
 ### Setting up pre-commit ###
 
-There are a few ways to do this, but we prefer to use
-[`pyenv`](https://github.com/pyenv/pyenv) and
-[`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) to
-create and manage a Python virtual environment specific to this
-project.
+This project uses [uv](https://docs.astral.sh/uv/) to manage its
+Python interpreter, virtual environment, and dependencies.
 
-We recommend using the `setup-env` script located in this repository,
-as it automates the entire environment configuration process. The
-dependencies required to run this script are
-[GNU `getopt`](https://github.com/util-linux/util-linux/blob/master/misc-utils/getopt.1.adoc),
-[`pyenv`](https://github.com/pyenv/pyenv), and [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv).
-If these tools are already configured on your system, you can simply run the
-following command:
+#### Installing uv ####
 
-```console
-./setup-env
-```
-
-Otherwise, follow the steps below to manually configure your
-environment.
-
-#### Installing and using GNU `getopt`, `pyenv`, and `pyenv-virtualenv` ####
-
-On macOS, we recommend installing [brew](https://brew.sh/).  Then
-installation is as simple as `brew install gnu-getopt pyenv pyenv-virtualenv` and
-adding this to your profile:
-
-```bash
-# GNU getopt must be explicitly added to the path since it is
-# keg-only (https://docs.brew.sh/FAQ#what-does-keg-only-mean)
-export PATH="$(brew --prefix)/opt/gnu-getopt/bin:$PATH"
-
-# Setup pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-```
-
-For Linux, Windows Subsystem for Linux (WSL), or macOS (if you
-don't want to use `brew`) you can use
-[pyenv/pyenv-installer](https://github.com/pyenv/pyenv-installer) to
-install the necessary tools. Before running this ensure that you have
-installed the prerequisites for your platform according to the
-[`pyenv` wiki
-page](https://github.com/pyenv/pyenv/wiki/common-build-problems).
-GNU `getopt` is included in most Linux distributions as part of the
-[`util-linux`](https://github.com/util-linux/util-linux) package.
-
-On WSL you should treat your platform as whatever Linux distribution
-you've chosen to install.
-
-Once you have installed `pyenv` you will need to add the following
-lines to your `.bash_profile` (or `.profile`):
-
-```bash
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-```
-
-and then add the following lines to your `.bashrc`:
-
-```bash
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-```
-
-If you want more information about setting up `pyenv` once installed, please run
-
-```console
-pyenv init
-```
-
-and
-
-```console
-pyenv virtualenv-init
-```
-
-for the current configuration instructions.
-
-If you are using a shell other than `bash` you should follow the
-instructions that the `pyenv-installer` script outputs.
-
-You will need to reload your shell for these changes to take effect so
-you can begin to use `pyenv`.
-
-For a list of Python versions that are already installed and ready to
-use with `pyenv`, use the command `pyenv versions`.  To see a list of
-the Python versions available to be installed and used with `pyenv`
-use the command `pyenv install --list`.  You can read more in the
-[pyenv command reference](https://github.com/pyenv/pyenv/blob/master/COMMANDS.md)
-about the many things that `pyenv` can do.  See the
-[pyenv-virtualenv usage notes](https://github.com/pyenv/pyenv-virtualenv#usage)
-for the additional capabilities that pyenv-virtualenv adds to the
-`pyenv` command.
+On macOS, we recommend installing [brew](https://brew.sh/). Then
+installation is as simple as `brew install uv`. For Linux, Windows
+Subsystem for Linux (WSL), or macOS without `brew`, use the
+[standalone installer](https://docs.astral.sh/uv/getting-started/installation/).
+There is no need to install Python separately: `uv` downloads a
+suitable interpreter on demand.
 
 #### Creating the Python virtual environment ####
 
-Once `pyenv` and `pyenv-virtualenv` are installed on your system, you
-can create and configure the Python virtual environment with these
-commands:
+Create the environment with the test and documentation dependency
+groups, and activate it so the `pre-commit`, `pytest`, and `make`
+commands below find their tools:
 
 ```console
 cd weewx-home-assistant
-pyenv virtualenv <python_version_to_use> weewx-home-assistant
-pyenv local weewx-home-assistant
-pip install --requirement requirements-dev.txt
+uv sync --group test --group docs
+source .venv/bin/activate
 ```
+
+If you prefer not to activate the environment, prefix commands with
+`uv run` instead (for example `uv run pytest`).
 
 #### Installing the pre-commit hook ####
 
