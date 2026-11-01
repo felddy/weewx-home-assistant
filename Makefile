@@ -31,11 +31,11 @@ version: guard-version
 
 ## docs: render the README and every other document from its template.
 docs: guard-version
-	python3 tools/render_docs.py --all
+	uv run --only-group docs python3 tools/render_docs.py --all
 
 ## docs-check: verify every rendered document is in sync with its template.
 docs-check: guard-version
-	python3 tools/render_docs.py --check
+	uv run --only-group docs python3 tools/render_docs.py --check
 
 ## test: run the test suite.
 test:
