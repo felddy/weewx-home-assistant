@@ -147,9 +147,7 @@ commands:
 
 ```console
 cd weewx-home-assistant
-pyenv virtualenv <python_version_to_use> weewx-home-assistant
-pyenv local weewx-home-assistant
-pip install --requirement requirements-dev.txt
+uv sync --group test
 ```
 
 #### Installing the pre-commit hook ####

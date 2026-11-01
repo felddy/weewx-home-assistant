@@ -2,7 +2,7 @@
 
 [![GitHub Build Status](https://github.com/felddy/weewx-home-assistant/workflows/build/badge.svg)](https://github.com/felddy/weewx-home-assistant/actions)
 [![CodeQL](https://github.com/felddy/weewx-home-assistant/workflows/CodeQL/badge.svg)](https://github.com/felddy/weewx-home-assistant/actions/workflows/codeql-analysis.yml)
-[![Coverage Status](https://coveralls.io/repos/github/felddy/weewx-home-assistant/badge.svg?branch=develop)](https://coveralls.io/github/felddy/weewx-home-assistant?branch=develop)
+[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/felddy/weewx-home-assistant/badges/coverage.json)](https://github.com/felddy/weewx-home-assistant/actions/workflows/build.yml)
 [![Known Vulnerabilities](https://snyk.io/test/github/felddy/weewx-home-assistant/develop/badge.svg)](https://snyk.io/test/github/felddy/weewx-home-assistant)
 
 This [WeeWX](http://www.weewx.com/) extension simplifies the integration of a
@@ -28,7 +28,7 @@ Key Features:
 ## Prerequisites ##
 
 - A functioning installation of [WeeWX](http://www.weewx.com/) version `5.1` or
-later using [Python](https://www.python.org/) version `3.10` or later.
+later using [Python](https://www.python.org/) version `3.11` or later.
 - A functioning MQTT broker.
 
 > [!TIP]

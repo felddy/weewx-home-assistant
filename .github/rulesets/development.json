@@ -38,36 +38,8 @@
         "do_not_enforce_on_create": false,
         "required_status_checks": [
           {
-            "context": "build wheel - py3.10",
-            "integration_id": 15368
-          },
-          {
-            "context": "build wheel - py3.11",
-            "integration_id": 15368
-          },
-          {
-            "context": "build wheel - py3.12",
-            "integration_id": 15368
-          },
-          {
-            "context": "build wheel - py3.13",
-            "integration_id": 15368
-          },
-          {
-            "context": "build wheel - py3.14",
-            "integration_id": 15368
-          },
-          {
-            "context": "build wheel - py3.15",
-            "integration_id": 15368
-          },
-          {
             "context": "CodeQL",
             "integration_id": 57789
-          },
-          {
-            "context": "coveralls-finish",
-            "integration_id": 15368
           },
           {
             "context": "dependency-review / dependency-review",
@@ -78,51 +50,47 @@
             "integration_id": 15368
           },
           {
-            "context": "test built wheel - py3.10",
+            "context": "Python / build distributions",
             "integration_id": 15368
           },
           {
-            "context": "test built wheel - py3.11",
+            "context": "Python / test built wheel - py3.11",
             "integration_id": 15368
           },
           {
-            "context": "test built wheel - py3.12",
+            "context": "Python / test built wheel - py3.12",
             "integration_id": 15368
           },
           {
-            "context": "test built wheel - py3.13",
+            "context": "Python / test built wheel - py3.13",
             "integration_id": 15368
           },
           {
-            "context": "test built wheel - py3.14",
+            "context": "Python / test built wheel - py3.14",
             "integration_id": 15368
           },
           {
-            "context": "test built wheel - py3.15",
+            "context": "Python / test built wheel - py3.15",
             "integration_id": 15368
           },
           {
-            "context": "test source - py3.10",
+            "context": "Python / test source - py3.11",
             "integration_id": 15368
           },
           {
-            "context": "test source - py3.11",
+            "context": "Python / test source - py3.12",
             "integration_id": 15368
           },
           {
-            "context": "test source - py3.12",
+            "context": "Python / test source - py3.13",
             "integration_id": 15368
           },
           {
-            "context": "test source - py3.13",
+            "context": "Python / test source - py3.14",
             "integration_id": 15368
           },
           {
-            "context": "test source - py3.14",
-            "integration_id": 15368
-          },
-          {
-            "context": "test source - py3.15",
+            "context": "Python / test source - py3.15",
             "integration_id": 15368
           }
         ],

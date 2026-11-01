@@ -10,4 +10,8 @@
 
 set -eu
 
-exec python3 tools/render_docs.py --all
+# release-please bumps the project version in pyproject.toml, which
+# strands uv.lock's recorded version; refresh it alongside the render.
+uv lock
+
+exec uv run --only-group docs python tools/render_docs.py --all
