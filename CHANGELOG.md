@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0](https://github.com/felddy/weewx-home-assistant/compare/v1.2.1...v1.3.0) (2026-11-01)
+
+
+### Features
+
+* **build:** adopt the reusable uv-based python-build pipeline ([111db96](https://github.com/felddy/weewx-home-assistant/commit/111db969b4645f00198119d1597e46d5b1c7e8a3))
+* **build:** adopt the reusable uv-based python-build pipeline ([2749e40](https://github.com/felddy/weewx-home-assistant/commit/2749e40cbdad5c16fface3912c7985bbd46e2c65))
+* **housekeeping:** onboard to the reusable-workflows Phase E set ([122f1c3](https://github.com/felddy/weewx-home-assistant/commit/122f1c305cc1a9320e59a5cff9972bc9cc5a5f94))
+* **housekeeping:** onboard to the reusable-workflows Phase E set ([9c169fc](https://github.com/felddy/weewx-home-assistant/commit/9c169fc3223ffec0e1f4752111426c1c9da3d627))
+
+
+### Bug Fixes
+
+* **rulesets:** the lint context uses the caller job's display name ([03860ac](https://github.com/felddy/weewx-home-assistant/commit/03860aca9a76c10f9cb0fe2b185e1d42045ef643))
+
 ## [1.2.1](https://github.com/felddy/weewx-home-assistant/compare/v1.2.0...v1.2.1) (2026-10-24)
 
 
