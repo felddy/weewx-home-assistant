@@ -1,5 +1,0 @@
---requirement requirements-test.txt
-ipython
-jinja2
-mypy
-semver
