@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.1](https://github.com/felddy/weewx-home-assistant/compare/v1.3.0...v1.3.1) (2026-11-05)
+
+
+### Bug Fixes
+
+* **dependabot:** point at ecosystems that still exist ([b7fefd3](https://github.com/felddy/weewx-home-assistant/commit/b7fefd3a62c84e642af723f9c5af22f10b58741d))
+* **dependabot:** point at ecosystems that still exist ([07e28d6](https://github.com/felddy/weewx-home-assistant/commit/07e28d6bf5fe5b7365be543d9e8e9216460d2e15))
+
+
+### Miscellaneous Chores
+
+* **lint:** sync pre-commit config with the central base ([971688c](https://github.com/felddy/weewx-home-assistant/commit/971688c985b4542710be115561a637c7f9600f3d))
+* **lint:** sync pre-commit config with the central base ([98aec5b](https://github.com/felddy/weewx-home-assistant/commit/98aec5b3d71f383ce8b34d125c649284a15280d8))
+* **lint:** sync pre-commit config with the central base ([4d8ce55](https://github.com/felddy/weewx-home-assistant/commit/4d8ce55f57f284485020fc1af61c68617c07c026))
+* **lint:** sync pre-commit config with the central base ([b91f3a2](https://github.com/felddy/weewx-home-assistant/commit/b91f3a2f8befe4ba32958e1f01b757e2006e9f33))
+
 ## [1.3.0](https://github.com/felddy/weewx-home-assistant/compare/v1.2.1...v1.3.0) (2026-11-01)
 
 
