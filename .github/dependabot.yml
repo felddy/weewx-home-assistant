@@ -30,14 +30,7 @@ updates:
       interval: weekly
 
   - directory: /
-    package-ecosystem: pip
-    cooldown:
-      default-days: 7
-    schedule:
-      interval: weekly
-
-  - directory: /
-    package-ecosystem: terraform
+    package-ecosystem: uv
     cooldown:
       default-days: 7
     schedule:
