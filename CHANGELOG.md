@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.2](https://github.com/felddy/weewx-home-assistant/compare/v1.3.1...v1.3.2) (2026-11-09)
+
+
+### Bug Fixes
+
+* **label-automerge:** trigger on pull_request instead of pull_request_target ([33f6ed9](https://github.com/felddy/weewx-home-assistant/commit/33f6ed9683295513c22de683cc653a0b9e5885d8))
+* **label-automerge:** trigger on pull_request instead of pull_request_target ([#72](https://github.com/felddy/weewx-home-assistant/issues/72)) ([2742635](https://github.com/felddy/weewx-home-assistant/commit/27426357bd38d1d7ed0371b1f540a0cff553a1e6))
+
+
+### Miscellaneous Chores
+
+* **lint:** sync pre-commit config with the central base ([#76](https://github.com/felddy/weewx-home-assistant/issues/76)) ([2bf47cb](https://github.com/felddy/weewx-home-assistant/commit/2bf47cbb73ef4eabeae1f17bfc73015c0f1a6e91))
+
 ## [1.3.1](https://github.com/felddy/weewx-home-assistant/compare/v1.3.0...v1.3.1) (2026-11-05)
 
 
