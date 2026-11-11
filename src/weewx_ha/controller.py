@@ -93,6 +93,14 @@ class Controller(StdService):
         # Register the callbacks for loop packets
         self.bind(NEW_LOOP_PACKET, self.on_weewx_loop)
 
+        # Connect only once everything used by the MQTT callbacks exists
+        self.mqtt_client.loop_start()
+        self.mqtt_client.connect(
+            self.config.mqtt.hostname,
+            self.config.mqtt.port,
+            self.config.mqtt.keep_alive,
+        )
+
     def init_mqtt_client(self, mqtt_config: MQTTConfig):
         """Initialize the MQTT client."""
         logger.info(f"MQTT configuration: {mqtt_config}")
@@ -111,10 +119,8 @@ class Controller(StdService):
             client.username_pw_set(
                 mqtt_config.username, mqtt_config.password.get_secret_value()
             )
-        client.loop_start()
         # Set the last will and testament
         client.will_set(self.availability_topic, "offline", qos=1, retain=True)
-        client.connect(mqtt_config.hostname, mqtt_config.port, mqtt_config.keep_alive)
         return client
 
     def on_mqtt_connect(
