@@ -37,7 +37,7 @@ jobs:
       - diagnostics
     permissions:
       contents: read
-    uses: felddy/reusable-workflows/.github/workflows/common-lint.yml@v5
+    uses: felddy/reusable-workflows/.github/workflows/common-lint.yml@v6
   python:
     name: Python
     needs:
@@ -47,6 +47,6 @@ jobs:
       # endpoint to the badges branch; every other job in the called
       # workflow declares contents: read explicitly.
       contents: write
-    uses: felddy/reusable-workflows/.github/workflows/python-build.yml@v5
+    uses: felddy/reusable-workflows/.github/workflows/python-build.yml@v6
     with:
       python-versions: '["3.11", "3.12", "3.13", "3.14", "3.15"]'
