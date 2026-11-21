@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.2](https://github.com/felddy/weewx-home-assistant/compare/v1.3.1...v1.3.2) (2026-11-21)
+
+
+### Bug Fixes
+
+* **controller:** connect to MQTT only after controller is fully initialized ([8b48626](https://github.com/felddy/weewx-home-assistant/commit/8b48626ddc8b62669103af7137b0e2a0ec48dcc5))
+* **controller:** connect to MQTT only after controller is fully initialized ([#85](https://github.com/felddy/weewx-home-assistant/issues/85)) ([d1282b2](https://github.com/felddy/weewx-home-assistant/commit/d1282b2604ec3804361e238f34aa6ed1d62125a6))
+* **label-automerge:** trigger on pull_request instead of pull_request_target ([33f6ed9](https://github.com/felddy/weewx-home-assistant/commit/33f6ed9683295513c22de683cc653a0b9e5885d8))
+* **label-automerge:** trigger on pull_request instead of pull_request_target ([#72](https://github.com/felddy/weewx-home-assistant/issues/72)) ([2742635](https://github.com/felddy/weewx-home-assistant/commit/27426357bd38d1d7ed0371b1f540a0cff553a1e6))
+
+
+### Miscellaneous Chores
+
+* **deps:** bump pydantic, paho-mqtt, coverage, and semver ([#84](https://github.com/felddy/weewx-home-assistant/issues/84)) ([b8e02d8](https://github.com/felddy/weewx-home-assistant/commit/b8e02d83fca497923e1f9b8e655004747d931756))
+* **deps:** track reusable-workflows v6 ([193c69b](https://github.com/felddy/weewx-home-assistant/commit/193c69bf7c7a1ea616b117a13fdd8c4979f4e25c))
+* **deps:** track reusable-workflows v6 ([#83](https://github.com/felddy/weewx-home-assistant/issues/83)) ([2dc6486](https://github.com/felddy/weewx-home-assistant/commit/2dc6486590086955850c3a896a552c0720ccaab5))
+* **lint:** sync pre-commit config with the central base ([#76](https://github.com/felddy/weewx-home-assistant/issues/76)) ([2bf47cb](https://github.com/felddy/weewx-home-assistant/commit/2bf47cbb73ef4eabeae1f17bfc73015c0f1a6e91))
+
 ## [1.3.1](https://github.com/felddy/weewx-home-assistant/compare/v1.3.0...v1.3.1) (2026-11-05)
 
 
