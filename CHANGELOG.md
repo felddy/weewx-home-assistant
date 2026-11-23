@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.3](https://github.com/felddy/weewx-home-assistant/compare/v1.3.2...v1.3.3) (2026-11-23)
+
+
+### Miscellaneous Chores
+
+* **lint:** sync pre-commit config with the central base ([#86](https://github.com/felddy/weewx-home-assistant/issues/86)) ([e28ad10](https://github.com/felddy/weewx-home-assistant/commit/e28ad1006a0eba1cee415d8a8544f6e910753b85))
+
 ## [1.3.2](https://github.com/felddy/weewx-home-assistant/compare/v1.3.1...v1.3.2) (2026-11-21)
 
 
